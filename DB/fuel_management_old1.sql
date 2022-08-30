@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 30, 2022 at 02:33 PM
+-- Generation Time: Aug 30, 2022 at 07:48 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -43,8 +43,7 @@ CREATE TABLE `customer` (
 --
 
 INSERT INTO `customer` (`cid`, `name`, `nic`, `email`, `phone`, `address`, `lid`) VALUES
-(1, 'test customer', '98989833v', 'testcus@gmail.com', 77323232, 'Kandy', 1),
-(2, 'test cus2', '53637778v', 'testcus2@gmail.com', 774777777, 'kurunegala', 3);
+(1, 'test customer', '98989833v', 'testcus@gmail.com', 77323232, 'Kandy', 1);
 
 -- --------------------------------------------------------
 
@@ -56,14 +55,6 @@ CREATE TABLE `fuel_type` (
   `fid` int(11) NOT NULL,
   `fuel` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `fuel_type`
---
-
-INSERT INTO `fuel_type` (`fid`, `fuel`) VALUES
-(1, 'Petrol'),
-(2, 'Diesel');
 
 -- --------------------------------------------------------
 
@@ -84,9 +75,7 @@ CREATE TABLE `login` (
 
 INSERT INTO `login` (`lid`, `username`, `password`, `type`) VALUES
 (1, 'testcus@gmail.com', '$2y$10$ECLxBz3sVc5Nurm8IJZefu1ob5bD5WYnGJx4bViUDpgSP4BZbivsS', 2),
-(2, 'testfuel@gmail.com', '$2y$10$ECLxBz3sVc5Nurm8IJZefu1ob5bD5WYnGJx4bViUDpgSP4BZbivsS', 3),
-(3, 'testcus2@gmail.com', '$2y$10$5n7dCsnPJ/Pva7DPB72xkuhf0UAnRmdL8MM0jLroDNlefeSslBbl.', 2),
-(4, 'testfuel2@gmail.com', '$2y$10$czG5Df96qzGLwCN9BMixu.f3ayTGyg7/TbAvL/PKsd9IE.qOeDeeu', 3);
+(2, 'testfuel@gmail.com', '$2y$10$ECLxBz3sVc5Nurm8IJZefu1ob5bD5WYnGJx4bViUDpgSP4BZbivsS', 3);
 
 -- --------------------------------------------------------
 
@@ -126,8 +115,7 @@ CREATE TABLE `station` (
 --
 
 INSERT INTO `station` (`sid`, `name`, `email`, `reg_no`, `city`, `address`, `phone`, `lat`, `lon`, `lid`) VALUES
-(1, 'Siriwaradena Fuel Station', 'testFuel@gmail.com', '112211', 1, 'Kandy', '', '7.286305797505232', '80.62677881897109', 2),
-(2, 'Nirmal filling satation ', 'testfuel2@gmail.com', '12-43', 1, 'Kurunegala', '0774785', '6.786590361512595', '79.96566765010357', 4);
+(1, 'Siriwaradena Fuel Station', 'testFuel@gmail.com', '112211', 1, 'Kandy', '', '7.286305797505232', '80.62677881897109', 2);
 
 -- --------------------------------------------------------
 
@@ -160,13 +148,6 @@ CREATE TABLE `vehicle` (
   `cid` int(11) NOT NULL,
   `fid` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `vehicle`
---
-
-INSERT INTO `vehicle` (`vid`, `reg_no`, `brand`, `model`, `engine_no`, `chassis_no`, `qr`, `vtid`, `cid`, `fid`) VALUES
-(1, 'CAW-1234', 'Susuki', 'Wagon R', '1212121', '121212333', 'AAAAAAAAAAA', 2, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -258,19 +239,19 @@ ALTER TABLE `vehicle_type`
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `cid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `cid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `fuel_type`
 --
 ALTER TABLE `fuel_type`
-  MODIFY `fid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `fid` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `login`
 --
 ALTER TABLE `login`
-  MODIFY `lid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `lid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `record`
@@ -282,7 +263,7 @@ ALTER TABLE `record`
 -- AUTO_INCREMENT for table `station`
 --
 ALTER TABLE `station`
-  MODIFY `sid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `sid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `stock`
@@ -294,7 +275,7 @@ ALTER TABLE `stock`
 -- AUTO_INCREMENT for table `vehicle`
 --
 ALTER TABLE `vehicle`
-  MODIFY `vid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `vid` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `vehicle_type`

@@ -199,6 +199,33 @@ if(isset($_POST['type'])){
 		echo json_encode($rec);
     }
 
+    if($_POST['type']=="addVehicle"){
+        $regNo = $_POST['regNo'];
+        $brand = $_POST['brand'];
+        $modal = $_POST['modal'];
+        $engine = $_POST['engine'];
+        $chassis = $_POST['chassis'];
+        $qr = $_POST['qr'];
+        $vtid = $_POST['vtid'];
+        $cid = $_POST['cid'];
+        $fid = $_POST['fid'];
+
+        $db = new DbConnect;
+        $sql = "INSERT INTO `vehicle`(`reg_no`, `brand`, `model`, `engine_no`, `chassis_no`, `qr`, `vtid`, `cid`, `fid`)  VALUES ('$regNo','$brand','$modal','$engine','$chassis','$qr',$vtid,$cid,$fid);";
+
+        if(!$conn = $db->connect()){
+            echo "SQL Error";
+            exit();
+        }
+        else {
+            $stmt = $conn->prepare($sql);
+            $stmt->execute();
+            $myObj3 = new \stdClass();
+            $myObj3->Status = "1";
+            $myJSON3 = json_encode($myObj3);
+            echo "$myJSON3";
+        }
+    }
 }
 
 ?>

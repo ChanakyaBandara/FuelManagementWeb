@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Purple Admin</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="vendors/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="vendors/css/vendor.bundle.base.css">
+  <!-- endinject -->
+  <!-- Plugin css for this page -->
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <!-- endinject -->
+  <!-- Layout styles -->
+  <link rel="stylesheet" href="css/style.css">
+  <!-- End layout styles -->
+  <link rel="shortcut icon" href="images/favicon.png" />
+</head>
+
+<body>
+  <div class="container">
+
+    <div class="card o-hidden border-0 shadow-lg my-5">
+      <div class="card-body p-0">
+        <!-- Nested Row within Card Body -->
+        <div class="row">
+          <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+          <div class="col-lg-7">
+            <div class="p-5">
+              <div class="text-center">
+                <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
+              </div>
+              <form class="user">
+                <div class="form-group row">
+                  <div class="col-sm-6 mb-3 mb-sm-0">
+                    <input type="text" class="form-control form-control-user" id="" placeholder="Name">
+                  </div>
+                  <div class="col-sm-6">
+                    <input type="text" class="form-control form-control-user" id="" placeholder="SID">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <input type="email" class="form-control form-control-user" id="" placeholder="Email Address">
+                </div>
+                <div class="form-group">
+                  <input type="email" class="form-control form-control-user" id="" placeholder="Subjects">
+                </div>
+
+                <div class="form-group row">
+                  <div class="col-sm-6 mb-3 mb-sm-0">
+                    <div class="col-lg-5 d-none d-lg-block"><output id="list"></output></div>
+                  </div>
+                  <div class="col-sm-6">
+                    <input type="file" class="form-control form-control-user" id="files">
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <div class="col-sm-6 mb-3 mb-sm-0">
+                    <input type="password" class="form-control form-control-user" id="exampleInputPassword"
+                      placeholder="Password">
+                  </div>
+                  <div class="col-sm-6">
+                    <input type="password" class="form-control form-control-user" id="exampleRepeatPassword"
+                      placeholder="Repeat Password">
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <div class="form-check" style="margin-left: 15%;">
+                    <label class="form-check-label">
+                      <input type="checkbox" class="form-check-input"> Supervisor </label>
+                  </div>
+                  <div class="form-check" style="margin-left: 35%;">
+                    <label class="form-check-label">
+                      <input type="checkbox" class="form-check-input"> Invigilator </label>
+                  </div>
+                </div>
+
+
+                <a href="login.html" class="btn btn-primary btn-user btn-block">
+                  Register Account
+                </a>
+              </form>
+              <hr>
+              <div class="text-center mt-4 font-weight-light"> Already Have an Account? <a href="login.html"
+                  class="text-primary">Login</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <!-- container-scroller -->
+  <!-- plugins:js -->
+  <script src="vendors/js/vendor.bundle.base.js"></script>
+
+  <script type="text/javascript">
+    function handleFileSelect(evt) {
+      var files = evt.target.files;
+
+      // Loop through the FileList and render image files as thumbnails.
+      for (var i = 0, f; f = files[i]; i++) {
+
+        // Only process image files.
+        if (!f.type.match('image.*')) {
+          continue;
+        }
+
+        var reader = new FileReader();
+
+        // Closure to capture the file information.
+        reader.onload = (function (theFile) {
+          return function (e) {
+            // Render thumbnail.
+            var span = document.createElement('span');
+            span.innerHTML =
+              [
+                '<img style="height: 75px; border: 1px solid #000; margin: 5px" src="',
+                e.target.result,
+                '" title="', escape(theFile.name),
+                '"/>'
+              ].join('');
+
+            document.getElementById('list').insertBefore(span, null);
+          };
+        })(f);
+
+        // Read in the image file as a data URL.
+        reader.readAsDataURL(f);
+      }
+    }
+
+    document.getElementById('files').addEventListener('change', handleFileSelect, false);
+  </script>
+  <!-- endinject -->
+  <!-- Plugin js for this page -->
+  <!-- End plugin js for this page -->
+  <!-- inject:js -->
+  <script src="js/off-canvas.js"></script>
+  <script src="js/hoverable-collapse.js"></script>
+  <script src="js/misc.js"></script>
+  <!-- endinject -->
+</body>
+
+</html>

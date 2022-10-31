@@ -18,6 +18,22 @@
         }
     }
 
+    function get_stock_sid($SID) {
+        $db = new DbConnect;
+        $conn = $db->connect();
+        $stmt = $conn->prepare("SELECT `stock`.*,`fuel_type`.`fuel` FROM `stock`,`fuel_type` WHERE `stock`.`fid`=`fuel_type`.`fid` AND `stock`.`sid` ='$SID'");
+        $stmt->execute();
+        $rec = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if(!empty($rec)){
+            echo json_encode($rec);
+        }else{
+            $sql = "INSERT INTO `stock`(`sid`, `fid`, `available_amount`) VALUES ('$SID',1,0),('$SID',2,0)";
+            $stmt = $conn->prepare($sql);
+            $stmt->execute();
+            get_stock_sid($SID);
+        }
+    }
+
 if(isset($_POST['type'])){
 
     if($_POST['type']=="login"){
@@ -199,6 +215,16 @@ if(isset($_POST['type'])){
 		echo json_encode($rec);
     }
 
+    if($_POST['type']=="load_records") {
+        $cid =  $_POST['cid'];
+		$db = new DbConnect;
+		$conn = $db->connect();
+		$stmt = $conn->prepare("SELECT `record`.*,`vehicle`.`reg_no`,`station`.`name`,`station`.`address`,`fuel_type`.`fuel` FROM `record`,`vehicle`,`station`,`fuel_type` WHERE `record`.`vid`=`vehicle`.`vid` AND `record`.`sid`=`station`.`sid` AND `vehicle`.`fid`=`fuel_type`.`fid` AND `vehicle`.`cid` ='$cid' ");
+		$stmt->execute();
+		$rec = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		echo json_encode($rec);
+    }
+
     if($_POST['type']=="addVehicle"){
         $regNo = $_POST['regNo'];
         $brand = $_POST['brand'];
@@ -222,6 +248,58 @@ if(isset($_POST['type'])){
             $stmt->execute();
             $myObj3 = new \stdClass();
             $myObj3->Status = "1";
+            $myJSON3 = json_encode($myObj3);
+            echo "$myJSON3";
+        }
+    }
+
+    if($_POST['type']=="get_stock_sid") {
+        $SID =  $_POST['SID'];
+        if(empty($SID)){
+            echo "Empty fields";
+        } else {
+            get_stock_sid($SID);
+        }
+    }
+
+    if($_POST['type']=="update_stock") {
+        $SID =  $_POST['SID'];
+        $Petrol_STID =  $_POST['Petrol_STID'];
+        $Petrol_Amount =  $_POST['Petrol_Amount'];
+        $Diesel_STID =  $_POST['Diesel_STID'];
+        $Diesel_Amount =  $_POST['Diesel_Amount'];
+
+        $db = new DbConnect;
+        $conn = $db->connect();
+        $sql = "UPDATE `stock` SET `available_amount`='$Petrol_Amount' WHERE `stid`='$Petrol_STID';";
+        $sql .= "UPDATE `stock` SET `available_amount`='$Diesel_Amount' WHERE `stid`='$Diesel_STID';";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        get_stock_sid($SID);
+    }
+
+    if($_POST['type']=="remaining_quota"){
+        $vid = $_POST['vid'];
+
+        $myObj3 = new \stdClass();
+		$db = new DbConnect;
+
+        if(!$conn = $db->connect()){
+            echo "SQL Error";
+            exit();
+        }
+        else {
+            $stmt = $conn->prepare("SELECT `vehicle_type`.`allowed_quota` FROM `vehicle_type`,`vehicle` WHERE `vehicle`.`vtid`=`vehicle_type`.`vtid` AND `vehicle`.`vid` ='$vid' ");
+            $stmt->execute();
+            if($result = $stmt->fetchAll(PDO::FETCH_ASSOC)){
+                $myObj3->allowed_quota = (int)$result[0]['allowed_quota'];
+            }
+            $stmt = $conn->prepare("SELECT COALESCE(SUM(amount),0) as total_amount FROM `record` WHERE `vid` ='$vid' ");
+            $stmt->execute();
+            if($result = $stmt->fetchAll(PDO::FETCH_ASSOC)){
+                $myObj3->total_amount = (int)$result[0]['total_amount'];
+            }
+
             $myJSON3 = json_encode($myObj3);
             echo "$myJSON3";
         }

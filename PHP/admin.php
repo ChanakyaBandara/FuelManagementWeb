@@ -84,5 +84,34 @@
 		echo json_encode($result);
 		}
 	}
+
+	if(isset($_POST['loadCustomerdetails'])) {
+		$db = new DbConnect;
+		if(!$conn = $db->connect()){
+            echo "SQL Error";
+            exit();
+        }
+        else {
+		$stmt = $conn->prepare("SELECT * FROM `customer` WHERE `cid` = ".$_POST['loadCustomerdetails']." ;");
+		$stmt->execute();
+		$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		echo json_encode($result);
+		}
+	}
+	
+	if(isset($_POST['loadVehicledetails'])) {
+		$db = new DbConnect;
+		if(!$conn = $db->connect()){
+            echo "SQL Error";
+            exit();
+        }
+        else {
+		$stmt = $conn->prepare("SELECT `vehicle`.*,`customer`.`name`,`vehicle_type`.`type`,`fuel_type`.`fuel` FROM `vehicle`,`vehicle_type`,`customer`,`fuel_type` WHERE `vehicle`.`vtid`=`vehicle_type`.`vtid` AND `vehicle`.`cid`=`customer`.`cid` AND `vehicle`.`fid`=`fuel_type`.`fid` AND `vehicle`.`vid` = ".$_POST['loadVehicledetails'].";");
+		$stmt->execute();
+		$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		echo json_encode($result);
+		}
+	}
+	
 	
 ?>

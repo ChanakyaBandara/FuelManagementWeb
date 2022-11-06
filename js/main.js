@@ -160,7 +160,7 @@ function loadSPQR() {
     });
 }
 
-function viewstartiondetails(ID){
+function viewstationdetails(ID){
 
     $.ajax({
         url: "PHP/admin.php",
@@ -192,6 +192,70 @@ function viewstartiondetails(ID){
             );
         });
         $("#tblStationsdetails").append("</tbody>");
+    });
+}
+
+function viewcustomerdetails(ID){
+
+    $.ajax({
+        url: "PHP/admin.php",
+        method: "post",
+        data: "loadCustomerdetails=" + ID,
+    }).done(function (result) {
+        result = JSON.parse(result);
+        console.log(result);
+        $("#tblCustomersdetails").empty();
+        $("#tblCustomersdetails").append(
+            "<thead><th>ID</th><th>Name</th><th>NIC</th><th>Location</th><th>Phone</th></thead><tbody>"
+        );
+        result.forEach(function (result) {
+            $("#tblCustomersdetails").append(
+                "<tr><td>" +
+                result.cid +
+                "</td><td> " +
+                result.name +
+                "</td><td>" +
+                result.nic +
+                "</td><td>" +
+                result.address +
+                "</td><td>" +
+                result.phone +
+                "</td></tr>"
+            );
+        });
+        $("#tblCustomersdetails").append("</tbody>");
+    });
+}
+function viewvehicaldetails(ID){
+    $.ajax({
+        url: "PHP/admin.php",
+        method: "post",
+        data: "loadVehicledetails=" + ID,
+    }).done(function (result) {
+        result = JSON.parse(result);
+        console.log(result);
+        $("#tblVehiclesdetails").empty();
+        $("#tblVehiclesdetails").append(
+            "<thead><th>Reg No</th><th>Type</th><th>Brand</th><th>Model</th><th>Fuel Type</th><th>Owner</th></thead><tbody>"
+        );
+        result.forEach(function (result) {
+            $("#tblVehiclesdetails").append(
+                "<tr><td>" +
+                result.reg_no +
+                "</td><td>" +
+                result.type +
+                "</td><td>" +
+                result.brand +
+                "</td><td>" +
+                result.model +
+                "</td><td>" +
+                result.fuel +
+                "</td><td>" +
+                result.name +
+                "</td></tr>"
+            );
+        });
+        $("#tblVehiclesdetails").append("</tbody>");
     });
 }
 

@@ -83,6 +83,12 @@
             </a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="view_vehicles.html">
+              <span class="menu-title">Vehicles</span>
+              <i class="mdi mdi-account menu-icon"></i>
+            </a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="fuel_quota.html">
               <span class="menu-title">Quota</span>
               <i class="mdi mdi-basket menu-icon"></i>
@@ -117,75 +123,7 @@
                 <h4 class="card-title">Pending Approvals</h4>
                 <br>
                 </p>
-                <table class="table">
-                  <thead>
-                    <tr>
-                      <th> Name </th>
-                      <th> Age </th>
-                      <th> Gender </th>
-                      <th> Height </th>
-                      <th> Weight </th>
-                      <th> BMI </th>
-                    </tr>
-                  </thead>
-                  <tbody id="tblview">
-                    <!--<tr>
-                                  <td> 15625 </td>
-                                  <td> Herman Beck </td>
-                                  <td class="text-success"> Pro</td>
-                                  <td><label class="badge badge-danger">Pending</label></td>
-                                  <td>
-                                      <button type="button" class="btn btn-inverse-success btn-icon">
-                                        <i class="mdi mdi-check"></i>
-                                      </button>
-                                      <button type="button" class="btn btn-inverse-danger btn-icon">
-                                        <i class="mdi mdi-delete"></i>
-                                      </button>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td> 15625 </td>
-                                  <td> Herman Beck </td>
-                                  <td class="text-primary"> Beginner</td>
-                                  <td><label class="badge badge-danger">Pending</label></td>
-                                  <td>
-                                      <button type="button" class="btn btn-inverse-success btn-icon">
-                                        <i class="mdi mdi-check"></i>
-                                      </button>
-                                      <button type="button" class="btn btn-inverse-danger btn-icon">
-                                        <i class="mdi mdi-delete"></i>
-                                      </button>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td> 15625 </td>
-                                  <td> Herman Beck </td>
-                                  <td class="text-default"> Intermediate</td>
-                                  <td><label class="badge badge-danger">Pending</label></td>
-                                  <td>
-                                      <button type="button" class="btn btn-inverse-success btn-icon">
-                                        <i class="mdi mdi-check"></i>
-                                      </button>
-                                      <button type="button" class="btn btn-inverse-danger btn-icon">
-                                        <i class="mdi mdi-delete"></i>
-                                      </button>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td> 15625 </td>
-                                  <td> Herman Beck </td>
-                                  <td class="text-warning"> Elite</td>
-                                  <td><label class="badge badge-danger">Pending</label></td>
-                                  <td>
-                                      <button type="button" class="btn btn-inverse-success btn-icon">
-                                        <i class="mdi mdi-check"></i>
-                                      </button>
-                                      <button type="button" class="btn btn-inverse-danger btn-icon">
-                                        <i class="mdi mdi-delete"></i>
-                                      </button>
-                                  </td>
-                                </tr>-->
-                  </tbody>
+                <table class="table" id="tblCustomers">
                 </table>
               </div>
             </div>
@@ -221,6 +159,12 @@
   <!-- endinject -->
   <!-- Custom js for this page -->
   <!-- End custom js for this page -->
+  <script language="javascript" src="js/main.js"></script>
+  <script language="javascript">
+    $(document).ready(function () {
+      loadCustomer();
+    });
+  </script>
 </body>
 
 </html>

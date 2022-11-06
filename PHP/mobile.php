@@ -225,6 +225,16 @@ if(isset($_POST['type'])){
 		echo json_encode($rec);
     }
 
+    if($_POST['type']=="load_station_records") {
+        $sid =  $_POST['sid'];
+		$db = new DbConnect;
+		$conn = $db->connect();
+		$stmt = $conn->prepare("SELECT `record`.*,`vehicle`.`reg_no`,`station`.`name`,`station`.`address`,`fuel_type`.`fuel` FROM `record`,`vehicle`,`station`,`fuel_type` WHERE `record`.`vid`=`vehicle`.`vid` AND `record`.`sid`=`station`.`sid` AND `vehicle`.`fid`=`fuel_type`.`fid` AND `station`.`sid` ='$sid' ");
+		$stmt->execute();
+		$rec = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		echo json_encode($rec);
+    }
+
     if($_POST['type']=="addVehicle"){
         $regNo = $_POST['regNo'];
         $brand = $_POST['brand'];
@@ -303,6 +313,108 @@ if(isset($_POST['type'])){
             $myJSON3 = json_encode($myObj3);
             echo "$myJSON3";
         }
+    }
+
+    if($_POST['type']=="add_special_qr"){
+        $cid = $_POST['cid'];
+        $purpose = $_POST['purpose'];
+        $amount = $_POST['amount'];
+        $approval = 0;
+        $ref = $_POST['ref'];
+        $qr_code = $_POST['qr_code'];
+
+        $db = new DbConnect;
+        $sql = "INSERT INTO `special_qr`(`cid`, `purpose`, `amount`, `approval`, `ref`, `qr_code`)  VALUES ('$cid','$purpose','$amount','$approval','$ref','$qr_code');";
+
+        if(!$conn = $db->connect()){
+            echo "SQL Error";
+            exit();
+        }
+        else {
+            $stmt = $conn->prepare($sql);
+            $stmt->execute();
+            $myObj3 = new \stdClass();
+            $myObj3->Status = "1";
+            $myJSON3 = json_encode($myObj3);
+            echo "$myJSON3";
+        }
+    }
+
+    if($_POST['type']=="add_extend"){
+        $vid = $_POST['vid'];
+        $week = $_POST['week'];
+        $amount = $_POST['amount'];
+        $ref = $_POST['ref'];
+        $approval = 0;
+
+        $db = new DbConnect;
+        $sql = "INSERT INTO `extends`(`vid`, `week`, `amount`, `ref`, `approval`)  VALUES ('$vid','$week','$amount','$ref','$approval');";
+
+        if(!$conn = $db->connect()){
+            echo "SQL Error";
+            exit();
+        }
+        else {
+            $stmt = $conn->prepare($sql);
+            $stmt->execute();
+            $myObj3 = new \stdClass();
+            $myObj3->Status = "1";
+            $myJSON3 = json_encode($myObj3);
+            echo "$myJSON3";
+        }
+    }
+
+    if($_POST['type']=="add_fuel_arrival"){
+        $sid = $_POST['sid'];
+        $ft_id = $_POST['ft_id'];
+        $amount = $_POST['amount'];
+        $status = 0;
+
+        $db = new DbConnect;
+        $sql = "INSERT INTO `fuel_arrival`(`sid`, `ft_id`, `amount`, `status`)  VALUES ('$sid','$ft_id','$amount','$status');";
+
+        if(!$conn = $db->connect()){
+            echo "SQL Error";
+            exit();
+        }
+        else {
+            $stmt = $conn->prepare($sql);
+            $stmt->execute();
+            $myObj3 = new \stdClass();
+            $myObj3->Status = "1";
+            $myJSON3 = json_encode($myObj3);
+            echo "$myJSON3";
+        }
+    }
+
+    if($_POST['type']=="get_fuel_arrival") {
+        $sid =  $_POST['sid'];
+		$db = new DbConnect;
+		$conn = $db->connect();
+		$stmt = $conn->prepare("SELECT `fuel_arrival`.*,`fuel_type`.`fuel` FROM `fuel_arrival`,`fuel_type` WHERE `fuel_arrival`.`sid` ='$sid' ");
+		$stmt->execute();
+		$rec = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		echo json_encode($rec);
+    }
+
+    if($_POST['type']=="get_special_qr") {
+        $cid =  $_POST['cid'];
+		$db = new DbConnect;
+		$conn = $db->connect();
+		$stmt = $conn->prepare("SELECT `sqr_id`, `cid`, `purpose`, `amount`, `approval`, `ref`, `qr_code` FROM `special_qr` WHERE `cid` ='$cid' ");
+		$stmt->execute();
+		$rec = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		echo json_encode($rec);
+    }
+
+    if($_POST['type']=="get_extends") {
+        $vid =  $_POST['vid'];
+		$db = new DbConnect;
+		$conn = $db->connect();
+		$stmt = $conn->prepare("SELECT `eid`, `vid`, `week`, `amount`, `ref`, `approval` FROM `extends` WHERE `vid` ='$vid' ");
+		$stmt->execute();
+		$rec = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		echo json_encode($rec);
     }
 }
 

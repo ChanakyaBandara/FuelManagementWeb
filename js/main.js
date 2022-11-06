@@ -15,9 +15,9 @@ function loadStation() {
             $("#tblStations").append(
                 "<tr><td>" +
                 result.sid +
-                "</td><td>" +
+                "</td><td> <a href='"+getViewAddRoute(result.sid,1)+"'>" +
                 result.name +
-                "</td><td>" +
+                "</a></td><td>" +
                 result.reg_no +
                 "</td><td>" +
                 result.address +
@@ -46,9 +46,9 @@ function loadCustomer() {
             $("#tblCustomers").append(
                 "<tr><td>" +
                 result.cid +
-                "</td><td>" +
+                "</td><td> <a href='"+getViewAddRoute(result.cid,2)+"'>" +
                 result.name +
-                "</td><td>" +
+                "</a></td><td>" +
                 result.nic +
                 "</td><td>" +
                 result.address +
@@ -85,9 +85,9 @@ function loadVehicle() {
                 result.model +
                 "</td><td>" +
                 result.fuel +
-                "</td><td>" +
+                "</td><td> <a href='"+getViewAddRoute(result.vid,3)+"'>" +
                 result.name +
-                "</td></tr>"
+                "</a></td></tr>"
             );
         });
         $("#tblVehicles").append("</tbody>");
@@ -159,3 +159,56 @@ function loadSPQR() {
         $("#tblSPQR").append("</tbody>");
     });
 }
+
+function viewstartiondetails(ID){
+
+    $.ajax({
+        url: "PHP/admin.php",
+        method: "post",
+        data: "loadStationById=" + ID,
+    }).done(function (result) {
+        result = JSON.parse(result);
+        console.log(result);
+        //`sid`, `name`, `email`, `reg_no`, `city`, `address`, `phone`, `lat`, `lon`, `lid` FROM `station`
+        $("#tblStationsdetails").empty();
+        $("#tblStationsdetails").append(
+            "<thead><th>Station ID</th><th>Name</th><th>Reg No</th><th>Location</th><th>Phone</th><th>Email</th></thead><tbody>"
+        );
+        result.forEach(function (result) {
+            $("#tblStationsdetails").append(
+                "<tr><td>" +
+                result.sid +
+                "</td><td>" +
+                result.name +
+                "</td><td>" +
+                result.reg_no +
+                "</td><td>" +
+                result.address +
+                "</td><td>" +
+                result.phone +
+                "</td><td>" +
+                result.email +
+                "</td></tr>"
+            );
+        });
+        $("#tblStationsdetails").append("</tbody>");
+    });
+}
+
+function getViewAddRoute(Id,type){
+    //1 - Admin
+    //2 - Seller
+    //3 - Buyer
+    switch(type) {
+      case 1:
+        return "view_station_details.html?PID="+Id;
+      case 2:
+        return "view_customer_details.html?PID="+Id;
+      case 3:
+        return "view_vehicles_details.html?PID="+Id;
+      default:
+        return "/";
+    }
+  }
+
+

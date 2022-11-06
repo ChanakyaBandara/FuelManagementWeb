@@ -120,7 +120,7 @@
                 <div class="card-body">
                   <h4 class="card-title">Member Payments</h4>
                   <div class="table-responsive">
-                    <table class="table">
+                    <table class="table" id="tblStationsdetails">
                       <thead>
                         <tr>
                           <th> ##</th>
@@ -164,7 +164,18 @@
   <script src="js/off-canvas.js"></script>
   <script src="js/hoverable-collapse.js"></script>
   <script src="js/misc.js"></script>
+  <script src="js/main.js"></script>
   <script src="LoadingSpinner/loading-spinner.js"></script>
+  <script>
+    function onload() {
+      const QueryString = window.location.search;
+      const urlParams = new URLSearchParams(QueryString);
+      if (urlParams.has("PID")) {
+        viewstartiondetails(urlParams.get("PID"));
+      }
+    }
+    onload()
+  </script>
   <!-- endinject -->
   <!-- Custom js for this page -->
   <!-- End custom js for this page -->

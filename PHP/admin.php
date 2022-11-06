@@ -71,4 +71,18 @@
 		echo json_encode($result);
 		}
 	}
+	if(isset($_POST['loadStationById'])) {
+		$db = new DbConnect;
+		if(!$conn = $db->connect()){
+            echo "SQL Error";
+            exit();
+        }
+        else {
+		$stmt = $conn->prepare("SELECT * FROM `station` WHERE `sid` = ".$_POST['loadStationById']." ;");
+		$stmt->execute();
+		$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		echo json_encode($result);
+		}
+	}
+	
 ?>

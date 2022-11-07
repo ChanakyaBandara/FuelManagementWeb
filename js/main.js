@@ -1,3 +1,7 @@
+const STATION = "STATION"
+const VEHICLE = "VEHICLE"
+const CUSTOMER = "CUSTOMER"
+
 function loadStation() {
     $.ajax({
         url: "PHP/admin.php",
@@ -13,11 +17,11 @@ function loadStation() {
         );
         result.forEach(function (result) {
             $("#tblStations").append(
-                "<tr><td>" +
+                "<tr onclick=\"window.location.href = '"+getReDirectURL(result.sid,STATION)+"';\"><td>" +
                 result.sid +
-                "</td><td> <a href='"+getViewAddRoute(result.sid,1)+"'>" +
+                "</td><td>" +
                 result.name +
-                "</a></td><td>" +
+                "</td><td>" +
                 result.reg_no +
                 "</td><td>" +
                 result.address +
@@ -44,11 +48,11 @@ function loadCustomer() {
         );
         result.forEach(function (result) {
             $("#tblCustomers").append(
-                "<tr><td>" +
+                "<tr onclick=\"window.location.href = '"+getReDirectURL(result.cid,CUSTOMER)+"';\"><td>" +
                 result.cid +
-                "</td><td> <a href='"+getViewAddRoute(result.cid,2)+"'>" +
+                "</td><td>" +
                 result.name +
-                "</a></td><td>" +
+                "</td><td>" +
                 result.nic +
                 "</td><td>" +
                 result.address +
@@ -75,7 +79,7 @@ function loadVehicle() {
         );
         result.forEach(function (result) {
             $("#tblVehicles").append(
-                "<tr><td>" +
+                "<tr onclick=\"window.location.href = '"+getReDirectURL(result.vid,VEHICLE)+"';\"><td>" +
                 result.reg_no +
                 "</td><td>" +
                 result.type +
@@ -85,7 +89,7 @@ function loadVehicle() {
                 result.model +
                 "</td><td>" +
                 result.fuel +
-                "</td><td> <a href='"+getViewAddRoute(result.vid,3)+"'>" +
+                "</td><td><a href='"+getReDirectURL(result.cid,CUSTOMER)+"'>" +
                 result.name +
                 "</a></td></tr>"
             );
@@ -110,15 +114,15 @@ function loadExtends() {
             $("#tblExtends").append(
                 "<tr><td>" +
                 result.eid +
-                "</td><td>" +
+                "</td><td><a href='"+getReDirectURL(result.vid,VEHICLE)+"'>" +
                 result.reg_no +
-                "</td><td>" +
+                "</a></td><td>" +
                 result.type +
                 "</td><td>" +
                 result.fuel +
-                "</td><td>" +
+                "</td><td><a href='"+getReDirectURL(result.cid,CUSTOMER)+"'>" +
                 result.name +
-                "</td><td>" +
+                "</a></td><td>" +
                 result.week +
                 "</td><td>" +
                 result.amount +
@@ -147,9 +151,9 @@ function loadSPQR() {
                 result.sqr_id +
                 "</td><td>" +
                 result.ref +
-                "</td><td>" +
+                "</td><td><a href='"+getReDirectURL(result.cid,CUSTOMER)+"'>" +
                 result.name +
-                "</td><td>" +
+                "</a></td><td>" +
                 result.purpose +
                 "</td><td>" +
                 result.amount +
@@ -259,17 +263,14 @@ function viewvehicaldetails(ID){
     });
 }
 
-function getViewAddRoute(Id,type){
-    //1 - Admin
-    //2 - Seller
-    //3 - Buyer
+function getReDirectURL(Id,type){
     switch(type) {
-      case 1:
-        return "view_station_details.html?PID="+Id;
-      case 2:
-        return "view_customer_details.html?PID="+Id;
-      case 3:
-        return "view_vehicles_details.html?PID="+Id;
+      case STATION:
+        return "view_station_details.html?ID="+Id;
+      case CUSTOMER:
+        return "view_customer_details.html?ID="+Id;
+      case VEHICLE:
+        return "view_vehicles_details.html?ID="+Id;
       default:
         return "/";
     }

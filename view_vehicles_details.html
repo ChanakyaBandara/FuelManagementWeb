@@ -120,7 +120,7 @@
                 <div class="card-body">
                   <h4 class="card-title">Member Payments</h4>
                   <div class="table-responsive">
-                    <table class="table" id="tblVehiclesdetails">
+                    <table class="table table-hover" id="tblVehiclesdetails">
                     </table>
                   </div>
                 </div>
@@ -156,14 +156,13 @@
   <script src="LoadingSpinner/loading-spinner.js"></script>
 
   <script>
-    function onload() {
+    window.onload = function () {
       const QueryString = window.location.search;
       const urlParams = new URLSearchParams(QueryString);
-      if (urlParams.has("PID")) {
-        viewvehicaldetails(urlParams.get("PID"));
+      if (urlParams.has("ID")) {
+        viewvehicaldetails(urlParams.get("ID"));
       }
     }
-    onload()
   </script>
   <!-- endinject -->
   <!-- Custom js for this page -->

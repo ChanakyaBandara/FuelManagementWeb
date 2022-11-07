@@ -120,7 +120,7 @@
                 <div class="card-body">
                   <h4 class="card-title">Member Payments</h4>
                   <div class="table-responsive">
-                    <table class="table">
+                    <table class="table table-hover" id="tblCustomersdetails">
                       <thead>
                         <tr>
                           <th> ##</th>
@@ -164,7 +164,17 @@
   <script src="js/off-canvas.js"></script>
   <script src="js/hoverable-collapse.js"></script>
   <script src="js/misc.js"></script>
+  <script src="js/main.js"></script>
   <script src="LoadingSpinner/loading-spinner.js"></script>
+  <script>
+    window.onload = function () {
+      const QueryString = window.location.search;
+      const urlParams = new URLSearchParams(QueryString);
+      if (urlParams.has("ID")) {
+        viewcustomerdetails(urlParams.get("ID"));
+      }
+    }
+  </script>
   <!-- endinject -->
   <!-- Custom js for this page -->
   <!-- End custom js for this page -->

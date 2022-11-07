@@ -1,3 +1,7 @@
+const STATION = "STATION"
+const VEHICLE = "VEHICLE"
+const CUSTOMER = "CUSTOMER"
+
 function loadStation() {
     $.ajax({
         url: "PHP/admin.php",
@@ -13,7 +17,7 @@ function loadStation() {
         );
         result.forEach(function (result) {
             $("#tblStations").append(
-                "<tr><td>" +
+                "<tr onclick=\"window.location.href = '"+getReDirectURL(result.sid,STATION)+"';\"><td>" +
                 result.sid +
                 "</td><td>" +
                 result.name +
@@ -44,7 +48,7 @@ function loadCustomer() {
         );
         result.forEach(function (result) {
             $("#tblCustomers").append(
-                "<tr><td>" +
+                "<tr onclick=\"window.location.href = '"+getReDirectURL(result.cid,CUSTOMER)+"';\"><td>" +
                 result.cid +
                 "</td><td>" +
                 result.name +
@@ -75,7 +79,7 @@ function loadVehicle() {
         );
         result.forEach(function (result) {
             $("#tblVehicles").append(
-                "<tr><td>" +
+                "<tr onclick=\"window.location.href = '"+getReDirectURL(result.vid,VEHICLE)+"';\"><td>" +
                 result.reg_no +
                 "</td><td>" +
                 result.type +
@@ -85,9 +89,9 @@ function loadVehicle() {
                 result.model +
                 "</td><td>" +
                 result.fuel +
-                "</td><td>" +
+                "</td><td><a href='"+getReDirectURL(result.cid,CUSTOMER)+"'>" +
                 result.name +
-                "</td></tr>"
+                "</a></td></tr>"
             );
         });
         $("#tblVehicles").append("</tbody>");
@@ -110,15 +114,15 @@ function loadExtends() {
             $("#tblExtends").append(
                 "<tr><td>" +
                 result.eid +
-                "</td><td>" +
+                "</td><td><a href='"+getReDirectURL(result.vid,VEHICLE)+"'>" +
                 result.reg_no +
-                "</td><td>" +
+                "</a></td><td>" +
                 result.type +
                 "</td><td>" +
                 result.fuel +
-                "</td><td>" +
+                "</td><td><a href='"+getReDirectURL(result.cid,CUSTOMER)+"'>" +
                 result.name +
-                "</td><td>" +
+                "</a></td><td>" +
                 result.week +
                 "</td><td>" +
                 result.amount +
@@ -147,9 +151,9 @@ function loadSPQR() {
                 result.sqr_id +
                 "</td><td>" +
                 result.ref +
-                "</td><td>" +
+                "</td><td><a href='"+getReDirectURL(result.cid,CUSTOMER)+"'>" +
                 result.name +
-                "</td><td>" +
+                "</a></td><td>" +
                 result.purpose +
                 "</td><td>" +
                 result.amount +
@@ -159,3 +163,117 @@ function loadSPQR() {
         $("#tblSPQR").append("</tbody>");
     });
 }
+
+function viewstationdetails(ID){
+
+    $.ajax({
+        url: "PHP/admin.php",
+        method: "post",
+        data: "loadStationById=" + ID,
+    }).done(function (result) {
+        result = JSON.parse(result);
+        console.log(result);
+        //`sid`, `name`, `email`, `reg_no`, `city`, `address`, `phone`, `lat`, `lon`, `lid` FROM `station`
+        $("#tblStationsdetails").empty();
+        $("#tblStationsdetails").append(
+            "<thead><th>Station ID</th><th>Name</th><th>Reg No</th><th>Location</th><th>Phone</th><th>Email</th></thead><tbody>"
+        );
+        result.forEach(function (result) {
+            $("#tblStationsdetails").append(
+                "<tr><td>" +
+                result.sid +
+                "</td><td>" +
+                result.name +
+                "</td><td>" +
+                result.reg_no +
+                "</td><td>" +
+                result.address +
+                "</td><td>" +
+                result.phone +
+                "</td><td>" +
+                result.email +
+                "</td></tr>"
+            );
+        });
+        $("#tblStationsdetails").append("</tbody>");
+    });
+}
+
+function viewcustomerdetails(ID){
+
+    $.ajax({
+        url: "PHP/admin.php",
+        method: "post",
+        data: "loadCustomerdetails=" + ID,
+    }).done(function (result) {
+        result = JSON.parse(result);
+        console.log(result);
+        $("#tblCustomersdetails").empty();
+        $("#tblCustomersdetails").append(
+            "<thead><th>ID</th><th>Name</th><th>NIC</th><th>Location</th><th>Phone</th></thead><tbody>"
+        );
+        result.forEach(function (result) {
+            $("#tblCustomersdetails").append(
+                "<tr><td>" +
+                result.cid +
+                "</td><td> " +
+                result.name +
+                "</td><td>" +
+                result.nic +
+                "</td><td>" +
+                result.address +
+                "</td><td>" +
+                result.phone +
+                "</td></tr>"
+            );
+        });
+        $("#tblCustomersdetails").append("</tbody>");
+    });
+}
+function viewvehicaldetails(ID){
+    $.ajax({
+        url: "PHP/admin.php",
+        method: "post",
+        data: "loadVehicledetails=" + ID,
+    }).done(function (result) {
+        result = JSON.parse(result);
+        console.log(result);
+        $("#tblVehiclesdetails").empty();
+        $("#tblVehiclesdetails").append(
+            "<thead><th>Reg No</th><th>Type</th><th>Brand</th><th>Model</th><th>Fuel Type</th><th>Owner</th></thead><tbody>"
+        );
+        result.forEach(function (result) {
+            $("#tblVehiclesdetails").append(
+                "<tr><td>" +
+                result.reg_no +
+                "</td><td>" +
+                result.type +
+                "</td><td>" +
+                result.brand +
+                "</td><td>" +
+                result.model +
+                "</td><td>" +
+                result.fuel +
+                "</td><td>" +
+                result.name +
+                "</td></tr>"
+            );
+        });
+        $("#tblVehiclesdetails").append("</tbody>");
+    });
+}
+
+function getReDirectURL(Id,type){
+    switch(type) {
+      case STATION:
+        return "view_station_details.html?ID="+Id;
+      case CUSTOMER:
+        return "view_customer_details.html?ID="+Id;
+      case VEHICLE:
+        return "view_vehicles_details.html?ID="+Id;
+      default:
+        return "/";
+    }
+  }
+
+

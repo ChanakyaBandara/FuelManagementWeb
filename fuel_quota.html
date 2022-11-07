@@ -115,7 +115,7 @@
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
-          <div class="row">
+          <div class="row" id="quotawidget">
             <div class="col-md-3 stretch-card grid-margin">
               <div class="card bg-gradient-danger card-img-holder text-white">
                 <div class="card-body">
@@ -168,7 +168,7 @@
               <div class="card" style="background-color: #2C3E50;">
                 <div class="card-body">
                   <h4 class="card-title">Update Membership Packages</h4><br>
-                  <form class="form-sample ml-5">
+                  <form class="form-sample ml-5" id="quotaform" method="post" action="PHP/admin.php">
                     <div class="row">
                       <div class="col-md-8">
                         <div class="form-group row">
@@ -209,7 +209,7 @@
                         </div>
                       </div>
                     </div>
-                    <button type="button" id="Updatebtn" class="btn btn-success btn-icon-text float-right"> Update <i
+                    <button type="submit" name="UpdateQuota" id="Updatebtn" class="btn btn-success btn-icon-text float-right"> Update <i
                         class="mdi mdi-check-all btn-icon-append"></i></button>
                   </form>
                 </div>
@@ -242,6 +242,8 @@
   <script src="js/off-canvas.js"></script>
   <script src="js/hoverable-collapse.js"></script>
   <script src="js/misc.js"></script>
+  <script src="js/main.js"></script>
+  <script>viewfulequota()</script>
   <script src="LoadingSpinner/loading-spinner.js"></script>
   <!-- endinject -->
   <!-- Custom js for this page -->

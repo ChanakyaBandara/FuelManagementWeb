@@ -113,5 +113,32 @@
 		}
 	}
 	
+	if(isset($_POST['loadfulequota'])) {
+		$db = new DbConnect;
+		if(!$conn = $db->connect()){
+            echo "SQL Error";
+            exit();
+        }
+        else {
+		$stmt = $conn->prepare("SELECT * FROM `vehicle_type` ;");
+		$stmt->execute();
+		$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		echo json_encode($result);
+		}
+	}
+
+	if(isset($_POST['UpdateQuota'])) {
+		$db = new DbConnect;
+		if(!$conn = $db->connect()){
+            echo "SQL Error";
+            exit();
+        }
+        else {
+		$stmt = $conn->prepare("SELECT * FROM `vehicle_type` ;");
+		$stmt->execute();
+		$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		echo json_encode($result);
+		}
+	}
 	
 ?>

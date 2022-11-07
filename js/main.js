@@ -263,6 +263,43 @@ function viewvehicaldetails(ID){
     });
 }
 
+function viewfulequota(){
+    $.ajax({
+        url: "PHP/admin.php",
+        method: "post",
+        data: "loadfulequota=" + 5,
+    }).done(function (result) {
+        result = JSON.parse(result);
+        console.log(result);
+        $("#quotawidget").empty();
+        result.forEach(function (result) {
+            $("#quotawidget").append(
+                "<div class='col-md-3 stretch-card grid-margin'><div class='card bg-gradient-danger card-img-holder text-white'><div class='card-body'><img src='images/dashboard/circle.svg' class='card-img-absolute' alt='circle-image' /> <h4 class='font-weight-normal mb-3'>"+
+                result.type+
+                "<i class='mdi mdi-chart-line mdi-24px float-right'></i></h4><h2 class='mb-5' id='packFr'>"+
+                result.allowed_quota
+                +"</h2><h6 class='card-text'>"+
+                result.description
+                +"</h6></div></div></div>"
+
+            );
+        });
+        $("#quotaform").empty();
+        result.forEach(function (result) {
+            $("#quotaform").append(
+                "<div class='row'><div class='col-md-8'><div class='form-group row'><label class='col-sm-4 col-form-label' style='color: #ffffff;'>"+
+                result.type+
+                "</label><div class='col-sm-8'><input type='number' name="+
+                result.vtid+
+                " class='form-control' placeholder='Enter new price here' value="+
+                result.allowed_quota+
+                " /></div></div></div></div>"
+
+            );
+        });
+    });
+}
+
 function getReDirectURL(Id,type){
     switch(type) {
       case STATION:

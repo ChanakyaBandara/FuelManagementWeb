@@ -24,7 +24,8 @@
   <div class="container-scroller">
     <!-- partial:../../partials/_navbar.html -->
     <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
-      <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center" style="background-color: #2C3E50;">
+      <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center"
+        style="background-color: #2C3E50;">
         <a class="navbar-brand brand-logo" href="../../index.html"><img src="images/logo-1.png" alt="logo" /></a>
         <a class="navbar-brand brand-logo-mini" href="../../index.html"><img src="images/logo-mini.svg"
             alt="logo" /></a>
@@ -125,9 +126,9 @@
                         <div class="row">
                           <div class="col-md-12">
                             <div class="form-group row">
-                              <label class="col-sm-3 col-form-label" style="color: #ffffff;">Reg No</label>
+                              <label class="col-sm-3 col-form-label" style="color: #ffffff;">ID</label>
                               <div class="col-sm-9">
-                                <label type="text" id="txtFr" class="form-control">Reg No</label>
+                                <label type="text" id="txtFr" class="form-control">ID</label>
                               </div>
                             </div>
                           </div>
@@ -135,9 +136,9 @@
                         <div class="row">
                           <div class="col-md-12">
                             <div class="form-group row">
-                              <label class="col-sm-3 col-form-label" style="color: #ffffff;">Type</label>
+                              <label class="col-sm-3 col-form-label" style="color: #ffffff;">Ref No</label>
                               <div class="col-sm-9">
-                                <label type="text" id="txtFr" class="form-control">Type</label>
+                                <label type="text" id="txtFr" class="form-control">Ref No</label>
                               </div>
                             </div>
                           </div>
@@ -145,9 +146,9 @@
                         <div class="row">
                           <div class="col-md-12">
                             <div class="form-group row">
-                              <label class="col-sm-3 col-form-label" style="color: #ffffff;">Brand</label>
+                              <label class="col-sm-3 col-form-label" style="color: #ffffff;">Name</label>
                               <div class="col-sm-9">
-                                <label type="text" id="txtFr" class="form-control">Brand</label>
+                                <label type="text" id="txtFr" class="form-control">Name</label>
                               </div>
                             </div>
                           </div>
@@ -157,9 +158,9 @@
                         <div class="row">
                           <div class="col-md-12">
                             <div class="form-group row">
-                              <label class="col-sm-3 col-form-label" style="color: #ffffff;">Model</label>
+                              <label class="col-sm-3 col-form-label" style="color: #ffffff;">Purpose</label>
                               <div class="col-sm-9">
-                                <label type="text" id="txtFr" class="form-control">Model</label>
+                                <label type="text" id="txtFr" class="form-control">Purpose</label>
                               </div>
                             </div>
                           </div>
@@ -167,21 +168,28 @@
                         <div class="row">
                           <div class="col-md-12">
                             <div class="form-group row">
-                              <label class="col-sm-3 col-form-label" style="color: #ffffff;">Fuel Type</label>
+                              <label class="col-sm-3 col-form-label" style="color: #ffffff;">Amount</label>
                               <div class="col-sm-9">
-                                <label type="text" id="txtFr" class="form-control">Phone</label>
+                                <label type="text" id="txtFr" class="form-control">Amount</label>
                               </div>
                             </div>
                           </div>
                         </div>
-                        <div class="row">
-                          <div class="col-md-12">
-                            <div class="form-group row">
-                              <label class="col-sm-3 col-form-label" style="color: #ffffff;">Owner</label>
-                              <div class="col-sm-9">
-                                <label type="text" id="txtFr" class="form-control">Owner</label>
-                              </div>
-                            </div>
+                        <div class="row" style="display: block;">
+                          <div class="col-sm" style="position: absolute; text-align: right;">
+                            <button type="submit" name="UpdateQuota" id="Updatebtn"
+                              class="btn btn-success btn-icon-text"> Accept <i
+                                class="mdi mdi-check-all btn-icon-append"></i></button>
+                            <button type="submit" name="UpdateQuota" id="Updatebtn"
+                              class="btn btn-danger btn-icon-text"> Reject <i
+                                class="mdi mdi-check-all btn-icon-append"></i></button>
+                          </div>
+                        </div>
+                        <div class="row" style="display: none;">
+                          <div class="col-sm" style="position: absolute; text-align: right;">
+                            <button type="submit" name="UpdateQuota" id="Updatebtn"
+                              class="btn btn-success btn-icon-text"> Update <i
+                                class="mdi mdi-check-all btn-icon-append"></i></button>
                           </div>
                         </div>
                       </div>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 02, 2022 at 08:26 PM
+-- Generation Time: Oct 31, 2022 at 03:04 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -21,32 +21,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `fuel_management`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `cancel_request`
---
-
-CREATE TABLE `cancel_request` (
-  `CRID` int(11) NOT NULL,
-  `RID` int(11) NOT NULL,
-  `timestamp` datetime NOT NULL DEFAULT current_timestamp(),
-  `reason` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `complaint`
---
-
-CREATE TABLE `complaint` (
-  `COID` int(11) NOT NULL,
-  `timestamp` datetime NOT NULL DEFAULT current_timestamp(),
-  `note` varchar(255) NOT NULL,
-  `cid` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -72,7 +46,7 @@ CREATE TABLE `customer` (
 
 CREATE TABLE `extends` (
   `eid` int(11) NOT NULL,
-  `vid` int(11) NOT NULL,
+  `cid` int(11) NOT NULL,
   `week` int(11) NOT NULL,
   `amount` int(11) NOT NULL,
   `ref` varchar(255) NOT NULL,
@@ -90,7 +64,7 @@ CREATE TABLE `fuel_arrival` (
   `sid` int(11) NOT NULL,
   `ft_id` int(11) NOT NULL,
   `amount` int(11) NOT NULL,
-  `timestamp` varchar(20) NOT NULL,
+  `timestamp` int(11) NOT NULL,
   `status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -111,9 +85,7 @@ CREATE TABLE `fuel_type` (
 
 INSERT INTO `fuel_type` (`fid`, `fuel`) VALUES
 (1, 'Petrol'),
-(2, 'Super Petrol'),
-(3, 'Diesel'),
-(4, 'Super Diesel');
+(2, 'Diesel');
 
 -- --------------------------------------------------------
 
@@ -128,6 +100,17 @@ CREATE TABLE `login` (
   `type` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `login`
+--
+
+INSERT INTO `login` (`lid`, `username`, `password`, `type`) VALUES
+(1, 'testcus@gmail.com', '$2y$10$ECLxBz3sVc5Nurm8IJZefu1ob5bD5WYnGJx4bViUDpgSP4BZbivsS', 2),
+(2, 'testfuel@gmail.com', '$2y$10$ECLxBz3sVc5Nurm8IJZefu1ob5bD5WYnGJx4bViUDpgSP4BZbivsS', 3),
+(3, 'testcus2@gmail.com', '$2y$10$5n7dCsnPJ/Pva7DPB72xkuhf0UAnRmdL8MM0jLroDNlefeSslBbl.', 2),
+(4, 'testfuel2@gmail.com', '$2y$10$czG5Df96qzGLwCN9BMixu.f3ayTGyg7/TbAvL/PKsd9IE.qOeDeeu', 3),
+(6, 'risiki@gmail.com', '$2y$10$f7EN2QTc8.35SLmcQ7Nha.nC4uBomvmMrnpekopydMsreqNo0LBhC', 3);
+
 -- --------------------------------------------------------
 
 --
@@ -139,8 +122,7 @@ CREATE TABLE `record` (
   `timestamp` datetime NOT NULL DEFAULT current_timestamp(),
   `vid` int(11) NOT NULL,
   `sid` int(11) NOT NULL,
-  `amount` int(11) NOT NULL,
-  `status` int(11) NOT NULL DEFAULT 0
+  `amount` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -152,28 +134,12 @@ CREATE TABLE `record` (
 CREATE TABLE `special_qr` (
   `sqr_id` int(11) NOT NULL,
   `cid` int(11) NOT NULL,
-  `purpose` varchar(255) NOT NULL,
-  `fid` int(11) NOT NULL,
+  `qr` int(11) NOT NULL,
+  `purpose` int(11) NOT NULL,
   `amount` int(11) NOT NULL,
-  `used` int(11) NOT NULL DEFAULT 0,
   `approval` tinyint(1) NOT NULL,
   `ref` varchar(255) NOT NULL,
-  `qr_code` varchar(255) NOT NULL,
-  `status` int(11) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `sp_record`
---
-
-CREATE TABLE `sp_record` (
-  `SPRID` int(11) NOT NULL,
-  `SPID` int(11) NOT NULL,
-  `timestamp` datetime NOT NULL DEFAULT current_timestamp(),
-  `sid` int(11) NOT NULL,
-  `amount` int(11) NOT NULL
+  `qr_code` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -192,8 +158,6 @@ CREATE TABLE `station` (
   `phone` varchar(12) NOT NULL,
   `lat` varchar(255) NOT NULL,
   `lon` varchar(255) NOT NULL,
-  `opn_cls_status` varchar(255) NOT NULL,
-  `queue_status` varchar(255) NOT NULL,
   `lid` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -207,8 +171,7 @@ CREATE TABLE `stock` (
   `stid` int(11) NOT NULL,
   `sid` int(11) NOT NULL,
   `fid` int(11) NOT NULL,
-  `available_amount` int(11) NOT NULL,
-  `capacity` int(11) NOT NULL DEFAULT 10000
+  `available_amount` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -244,22 +207,16 @@ CREATE TABLE `vehicle_type` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- Dumping data for table `vehicle_type`
+--
+
+INSERT INTO `vehicle_type` (`vtid`, `type`, `description`, `allowed_quota`) VALUES
+(1, 'Bike', '', 4),
+(2, 'Car', '', 20);
+
+--
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `cancel_request`
---
-ALTER TABLE `cancel_request`
-  ADD PRIMARY KEY (`CRID`),
-  ADD KEY `RID` (`RID`);
-
---
--- Indexes for table `complaint`
---
-ALTER TABLE `complaint`
-  ADD PRIMARY KEY (`COID`),
-  ADD KEY `cid` (`cid`);
 
 --
 -- Indexes for table `customer`
@@ -273,15 +230,7 @@ ALTER TABLE `customer`
 --
 ALTER TABLE `extends`
   ADD PRIMARY KEY (`eid`),
-  ADD KEY `vid` (`vid`);
-
---
--- Indexes for table `fuel_arrival`
---
-ALTER TABLE `fuel_arrival`
-  ADD PRIMARY KEY (`fa_id`),
-  ADD KEY `sid` (`sid`),
-  ADD KEY `ft_id` (`ft_id`);
+  ADD KEY `cid` (`cid`);
 
 --
 -- Indexes for table `fuel_type`
@@ -308,15 +257,7 @@ ALTER TABLE `record`
 --
 ALTER TABLE `special_qr`
   ADD PRIMARY KEY (`sqr_id`),
-  ADD UNIQUE KEY `cid` (`cid`),
-  ADD KEY `fid` (`fid`);
-
---
--- Indexes for table `sp_record`
---
-ALTER TABLE `sp_record`
-  ADD PRIMARY KEY (`SPRID`),
-  ADD KEY `SPID` (`SPID`);
+  ADD KEY `cid` (`cid`);
 
 --
 -- Indexes for table `station`
@@ -330,8 +271,8 @@ ALTER TABLE `station`
 --
 ALTER TABLE `stock`
   ADD PRIMARY KEY (`stid`),
-  ADD UNIQUE KEY `sid` (`sid`,`fid`),
-  ADD KEY `fid` (`fid`);
+  ADD KEY `fid` (`fid`),
+  ADD KEY `sid` (`sid`);
 
 --
 -- Indexes for table `vehicle`
@@ -353,18 +294,6 @@ ALTER TABLE `vehicle_type`
 --
 
 --
--- AUTO_INCREMENT for table `cancel_request`
---
-ALTER TABLE `cancel_request`
-  MODIFY `CRID` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `complaint`
---
-ALTER TABLE `complaint`
-  MODIFY `COID` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
@@ -377,22 +306,16 @@ ALTER TABLE `extends`
   MODIFY `eid` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `fuel_arrival`
---
-ALTER TABLE `fuel_arrival`
-  MODIFY `fa_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `fuel_type`
 --
 ALTER TABLE `fuel_type`
-  MODIFY `fid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `fid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `login`
 --
 ALTER TABLE `login`
-  MODIFY `lid` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `lid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `record`
@@ -405,12 +328,6 @@ ALTER TABLE `record`
 --
 ALTER TABLE `special_qr`
   MODIFY `sqr_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `sp_record`
---
-ALTER TABLE `sp_record`
-  MODIFY `SPRID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `station`
@@ -434,23 +351,11 @@ ALTER TABLE `vehicle`
 -- AUTO_INCREMENT for table `vehicle_type`
 --
 ALTER TABLE `vehicle_type`
-  MODIFY `vtid` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `vtid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `cancel_request`
---
-ALTER TABLE `cancel_request`
-  ADD CONSTRAINT `cancel_request_ibfk_1` FOREIGN KEY (`RID`) REFERENCES `record` (`rid`);
-
---
--- Constraints for table `complaint`
---
-ALTER TABLE `complaint`
-  ADD CONSTRAINT `complaint_ibfk_1` FOREIGN KEY (`cid`) REFERENCES `customer` (`cid`);
 
 --
 -- Constraints for table `customer`
@@ -462,14 +367,7 @@ ALTER TABLE `customer`
 -- Constraints for table `extends`
 --
 ALTER TABLE `extends`
-  ADD CONSTRAINT `extends_ibfk_1` FOREIGN KEY (`vid`) REFERENCES `vehicle` (`vid`);
-
---
--- Constraints for table `fuel_arrival`
---
-ALTER TABLE `fuel_arrival`
-  ADD CONSTRAINT `fuel_arrival_ibfk_1` FOREIGN KEY (`sid`) REFERENCES `station` (`sid`),
-  ADD CONSTRAINT `fuel_arrival_ibfk_2` FOREIGN KEY (`ft_id`) REFERENCES `fuel_type` (`fid`);
+  ADD CONSTRAINT `extends_ibfk_1` FOREIGN KEY (`cid`) REFERENCES `customer` (`cid`);
 
 --
 -- Constraints for table `record`
@@ -482,8 +380,7 @@ ALTER TABLE `record`
 -- Constraints for table `special_qr`
 --
 ALTER TABLE `special_qr`
-  ADD CONSTRAINT `special_qr_ibfk_1` FOREIGN KEY (`cid`) REFERENCES `customer` (`cid`),
-  ADD CONSTRAINT `special_qr_ibfk_2` FOREIGN KEY (`fid`) REFERENCES `fuel_type` (`fid`);
+  ADD CONSTRAINT `special_qr_ibfk_1` FOREIGN KEY (`cid`) REFERENCES `customer` (`cid`);
 
 --
 -- Constraints for table `station`

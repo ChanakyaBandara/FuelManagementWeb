@@ -528,7 +528,7 @@ if (isset($_POST['type'])) {
         $stmt->execute();
         $rec = $stmt->fetchAll(PDO::FETCH_ASSOC);
         if ($stmt->rowCount() > 0) {
-            echo json_encode($rec);
+            echo json_encode($rec[0]);
         } else {
             echo null;
         }

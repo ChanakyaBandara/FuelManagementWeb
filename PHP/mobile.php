@@ -17,6 +17,15 @@ function creat_user($nic, $Password, $type)
     }
 }
 
+function addStartingStocks($SID)
+{
+    $db = new DbConnect;
+    $conn = $db->connect();
+    $sql = "INSERT INTO `stock`(`sid`, `fid`, `available_amount`) VALUES ('$SID',1,0),('$SID',2,0),('$SID',3,0),('$SID',4,0)";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+}
+
 function get_stock_sid($SID)
 {
     $db = new DbConnect;
@@ -25,13 +34,24 @@ function get_stock_sid($SID)
     $stmt->execute();
     $rec = $stmt->fetchAll(PDO::FETCH_ASSOC);
     if (!empty($rec)) {
-        echo json_encode($rec);
+        if ($stmt->rowCount() > 0) {
+            echo json_encode($rec);
+        } else {
+            echo null;
+        }
     } else {
-        $sql = "INSERT INTO `stock`(`sid`, `fid`, `available_amount`) VALUES ('$SID',1,0),('$SID',2,0)";
-        $stmt = $conn->prepare($sql);
-        $stmt->execute();
+        addStartingStocks($SID);
         get_stock_sid($SID);
     }
+}
+
+function updateFuelStock($fid, $sid, $amount)
+{
+    $db = new DbConnect;
+    $conn = $db->connect();
+    $sql = "UPDATE `stock` SET available_amount = available_amount + $amount WHERE `sid`='$sid' AND `fid`='$fid';";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
 }
 
 if (isset($_POST['type'])) {
@@ -78,7 +98,7 @@ if (isset($_POST['type'])) {
         }
     }
 
-    if ($_POST['type'] == "addCustomer") {
+    if ($_POST['type'] == "add_customer") {
         //name email nic age phone gender Password
         $name = $_POST['name'];
         $nic = $_POST['nic'];
@@ -107,7 +127,7 @@ if (isset($_POST['type'])) {
         }
     }
 
-    if ($_POST['type'] == "addFuelStation") {
+    if ($_POST['type'] == "add_fuel_station") {
         //name email nic age phone gender Password
         $name = $_POST['name'];
         $email = $_POST['email'];
@@ -128,8 +148,9 @@ if (isset($_POST['type'])) {
             echo "SQL Error";
             exit();
         } else {
-            $stmt = $conn->prepare($sql);
-            $stmt->execute();
+            $conn->exec($sql);
+            $last_id = $conn->lastInsertId();
+            addStartingStocks($last_id);
             $myObj3 = new \stdClass();
             $myObj3->Status = "1";
             $myObj3->LID = $LID;
@@ -188,7 +209,11 @@ if (isset($_POST['type'])) {
         $stmt = $conn->prepare("SELECT `vehicle`.*, `vehicle_type`.`type`, `vehicle_type`.`description`, `vehicle_type`.`allowed_quota` FROM `vehicle`,`vehicle_type` WHERE `vehicle`.`vtid`=`vehicle_type`.`vtid` AND `vehicle`.`cid` ='$cid' ; ");
         $stmt->execute();
         $rec = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        echo json_encode($rec);
+        if ($stmt->rowCount() > 0) {
+            echo json_encode($rec);
+        } else {
+            echo null;
+        }
     }
 
     if ($_POST['type'] == "load_vehicle_by_qr") {
@@ -198,7 +223,11 @@ if (isset($_POST['type'])) {
         $stmt = $conn->prepare("SELECT `vehicle`.*, `vehicle_type`.`type`, `vehicle_type`.`description`, `vehicle_type`.`allowed_quota` FROM `vehicle`,`vehicle_type` WHERE `vehicle`.`vtid`=`vehicle_type`.`vtid` AND `vehicle`.`qr` ='$qr' ; ");
         $stmt->execute();
         $rec = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        echo json_encode($rec[0]);
+        if ($stmt->rowCount() > 0) {
+            echo json_encode($rec[0]);
+        } else {
+            echo null;
+        }
     }
 
     if ($_POST['type'] == "load_stations") {
@@ -207,7 +236,11 @@ if (isset($_POST['type'])) {
         $stmt = $conn->prepare("SELECT * FROM `station`");
         $stmt->execute();
         $rec = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        echo json_encode($rec);
+        if ($stmt->rowCount() > 0) {
+            echo json_encode($rec);
+        } else {
+            echo null;
+        }
     }
 
     if ($_POST['type'] == "load_vehicle_types") {
@@ -216,7 +249,11 @@ if (isset($_POST['type'])) {
         $stmt = $conn->prepare("SELECT * FROM `vehicle_type`");
         $stmt->execute();
         $rec = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        echo json_encode($rec);
+        if ($stmt->rowCount() > 0) {
+            echo json_encode($rec);
+        } else {
+            echo null;
+        }
     }
 
     if ($_POST['type'] == "load_fuel_types") {
@@ -225,7 +262,11 @@ if (isset($_POST['type'])) {
         $stmt = $conn->prepare("SELECT * FROM `fuel_type`");
         $stmt->execute();
         $rec = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        echo json_encode($rec);
+        if ($stmt->rowCount() > 0) {
+            echo json_encode($rec);
+        } else {
+            echo null;
+        }
     }
 
     if ($_POST['type'] == "load_records") {
@@ -235,7 +276,25 @@ if (isset($_POST['type'])) {
         $stmt = $conn->prepare("SELECT `record`.*,`vehicle`.`reg_no`,`station`.`name`,`station`.`address`,`fuel_type`.`fuel` FROM `record`,`vehicle`,`station`,`fuel_type` WHERE `record`.`vid`=`vehicle`.`vid` AND `record`.`sid`=`station`.`sid` AND `vehicle`.`fid`=`fuel_type`.`fid` AND `vehicle`.`cid` ='$cid' ");
         $stmt->execute();
         $rec = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        echo json_encode($rec);
+        if ($stmt->rowCount() > 0) {
+            echo json_encode($rec);
+        } else {
+            echo null;
+        }
+    }
+
+    if ($_POST['type'] == "load_complaints") {
+        $cid = $_POST['cid'];
+        $db = new DbConnect;
+        $conn = $db->connect();
+        $stmt = $conn->prepare("SELECT * FROM `complaint` WHERE `cid` ='$cid' ");
+        $stmt->execute();
+        $rec = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if ($stmt->rowCount() > 0) {
+            echo json_encode($rec);
+        } else {
+            echo null;
+        }
     }
 
     if ($_POST['type'] == "load_station_records") {
@@ -245,10 +304,14 @@ if (isset($_POST['type'])) {
         $stmt = $conn->prepare("SELECT `record`.*,`vehicle`.`reg_no`,`station`.`name`,`station`.`address`,`fuel_type`.`fuel` FROM `record`,`vehicle`,`station`,`fuel_type` WHERE `record`.`vid`=`vehicle`.`vid` AND `record`.`sid`=`station`.`sid` AND `vehicle`.`fid`=`fuel_type`.`fid` AND `station`.`sid` ='$sid' ");
         $stmt->execute();
         $rec = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        echo json_encode($rec);
+        if ($stmt->rowCount() > 0) {
+            echo json_encode($rec);
+        } else {
+            echo null;
+        }
     }
 
-    if ($_POST['type'] == "addVehicle") {
+    if ($_POST['type'] == "add_vehicle") {
         $regNo = $_POST['regNo'];
         $brand = $_POST['brand'];
         $modal = $_POST['modal'];
@@ -313,12 +376,17 @@ if (isset($_POST['type'])) {
             $stmt = $conn->prepare("SELECT `vehicle_type`.`allowed_quota` FROM `vehicle_type`,`vehicle` WHERE `vehicle`.`vtid`=`vehicle_type`.`vtid` AND `vehicle`.`vid` ='$vid' ");
             $stmt->execute();
             if ($result = $stmt->fetchAll(PDO::FETCH_ASSOC)) {
-                $myObj3->allowed_quota = (int)$result[0]['allowed_quota'];
+                $myObj3->allowed_quota = (int) $result[0]['allowed_quota'];
             }
-            $stmt = $conn->prepare("SELECT COALESCE(SUM(amount),0) as total_amount FROM `record` WHERE `vid` ='$vid' ");
+            $stmt = $conn->prepare("SELECT COALESCE(SUM(amount),0) as extend_amount FROM `extends` WHERE `approval`=1 AND `vid` ='$vid' ");
             $stmt->execute();
             if ($result = $stmt->fetchAll(PDO::FETCH_ASSOC)) {
-                $myObj3->total_amount = (int)$result[0]['total_amount'];
+                $myObj3->extend_amount = (int) $result[0]['extend_amount'];
+            }
+            $stmt = $conn->prepare("SELECT COALESCE(SUM(amount),0) as total_amount FROM `record` WHERE  week(`record`.`timestamp`)=week(now()) AND `vid` ='$vid' ");
+            $stmt->execute();
+            if ($result = $stmt->fetchAll(PDO::FETCH_ASSOC)) {
+                $myObj3->total_amount = (int) $result[0]['total_amount'];
             }
 
             $myJSON3 = json_encode($myObj3);
@@ -352,7 +420,7 @@ if (isset($_POST['type'])) {
 
     if ($_POST['type'] == "add_extend") {
         $vid = $_POST['vid'];
-        $week = $_POST['week'];
+        $week = 0;
         $amount = $_POST['amount'];
         $ref = $_POST['ref'];
         $approval = 0;
@@ -376,11 +444,12 @@ if (isset($_POST['type'])) {
     if ($_POST['type'] == "add_fuel_arrival") {
         $sid = $_POST['sid'];
         $ft_id = $_POST['ft_id'];
+        $timestamp = $_POST['timestamp'];
         $amount = $_POST['amount'];
         $status = 0;
 
         $db = new DbConnect;
-        $sql = "INSERT INTO `fuel_arrival`(`sid`, `ft_id`, `amount`, `status`)  VALUES ('$sid','$ft_id','$amount','$status');";
+        $sql = "INSERT INTO `fuel_arrival`(`sid`, `ft_id`, `amount`, `timestamp`, `status`)  VALUES ('$sid','$ft_id','$amount','$timestamp','$status');";
 
         if (!$conn = $db->connect()) {
             echo "SQL Error";
@@ -402,17 +471,53 @@ if (isset($_POST['type'])) {
         $stmt = $conn->prepare("SELECT `fuel_arrival`.*,`fuel_type`.`fuel` FROM `fuel_arrival`,`fuel_type` WHERE `fuel_arrival`.`sid` ='$sid' ");
         $stmt->execute();
         $rec = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        echo json_encode($rec);
+        if ($stmt->rowCount() > 0) {
+            echo json_encode($rec);
+        } else {
+            echo null;
+        }
     }
 
     if ($_POST['type'] == "get_special_qr") {
         $cid = $_POST['cid'];
         $db = new DbConnect;
         $conn = $db->connect();
-        $stmt = $conn->prepare("SELECT `sqr_id`, `cid`, `purpose`, `amount`, `approval`, `ref`, `qr_code` FROM `special_qr` WHERE `cid` ='$cid' ");
+        $stmt = $conn->prepare("SELECT `sqr_id`, `cid`, `purpose`, `fuel_type`.`fid`, `fuel`, `amount`, `used`, `approval`, `ref`, `qr_code`, `status` FROM `special_qr`,`fuel_type` WHERE `special_qr`.`fid`=`fuel_type`.`fid` AND `status`=0 AND `cid` ='$cid' ");
         $stmt->execute();
         $rec = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        echo json_encode($rec);
+        if ($stmt->rowCount() > 0) {
+            echo json_encode($rec[0]);
+        } else {
+            echo null;
+        }
+    }
+
+    if ($_POST['type'] == "load_specialQR_by_qr") {
+        $qr = $_POST['qr'];
+        $db = new DbConnect;
+        $conn = $db->connect();
+        $stmt = $conn->prepare("SELECT `sqr_id`, `customer`.`cid`,`customer`.`name`, `purpose`, `fuel_type`.`fid`, `fuel`, `amount`, `used`, `approval`, `ref`, `qr_code`, `status` FROM `special_qr`,`customer`,`fuel_type` WHERE `special_qr`.`fid`=`fuel_type`.`fid` AND `special_qr`.`cid`=`customer`.`cid` AND `qr_code` ='$qr' ");
+        $stmt->execute();
+        $rec = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if ($stmt->rowCount() > 0) {
+            echo json_encode($rec[0]);
+        } else {
+            echo null;
+        }
+    }
+
+    if ($_POST['type'] == "load_fuel_arrivals") {
+        $sid = $_POST['sid'];
+        $db = new DbConnect;
+        $conn = $db->connect();
+        $stmt = $conn->prepare("SELECT `fa_id`, `sid`, `fid`, `fuel` , `amount`, `timestamp`, `status` FROM `fuel_arrival`,`fuel_type` WHERE `fuel_arrival`.`ft_id`=`fuel_type`.`fid` AND `sid` ='$sid' ");
+        $stmt->execute();
+        $rec = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if ($stmt->rowCount() > 0) {
+            echo json_encode($rec);
+        } else {
+            echo null;
+        }
     }
 
     if ($_POST['type'] == "get_extends") {
@@ -422,16 +527,22 @@ if (isset($_POST['type'])) {
         $stmt = $conn->prepare("SELECT `eid`, `vid`, `week`, `amount`, `ref`, `approval` FROM `extends` WHERE `vid` ='$vid' ");
         $stmt->execute();
         $rec = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        echo json_encode($rec);
+        if ($stmt->rowCount() > 0) {
+            echo json_encode($rec);
+        } else {
+            echo null;
+        }
     }
 
     if ($_POST['type'] == "add_fuel_record") {
         $sid = $_POST['sid'];
         $vid = $_POST['vid'];
+        $fid = $_POST['fid'];
         $amount = $_POST['amount'];
 
         $db = new DbConnect;
         $sql = "INSERT INTO `record`( `vid`, `sid`, `amount`)  VALUES ('$vid','$sid','$amount');";
+        $sql .= "UPDATE `stock` SET available_amount = available_amount - $amount WHERE `sid`='$sid' AND `fid`='$fid';";
 
         if (!$conn = $db->connect()) {
             echo "SQL Error";
@@ -445,7 +556,102 @@ if (isset($_POST['type'])) {
             echo "$myJSON3";
         }
     }
+
+    if ($_POST['type'] == "add_specialQR_record") {
+        $sid = $_POST['sid'];
+        $fid = $_POST['fid'];
+        $SPID = $_POST['SPID'];
+        $amount = $_POST['amount'];
+
+        $db = new DbConnect;
+        $sql = "INSERT INTO `sp_record`(`SPID`, `sid`, `amount`)  VALUES ('$SPID','$sid','$amount');";
+        $sql .= "UPDATE `special_qr` SET used =  used + $amount WHERE `sqr_id`='$SPID';";
+        $sql .= "UPDATE `stock` SET available_amount = available_amount - $amount WHERE `sid`='$sid' AND `fid`='$fid';";
+
+        if (!$conn = $db->connect()) {
+            echo "SQL Error";
+            exit();
+        } else {
+            $stmt = $conn->prepare($sql);
+            $stmt->execute();
+            $myObj3 = new \stdClass();
+            $myObj3->Status = "1";
+            $myJSON3 = json_encode($myObj3);
+            echo "$myJSON3";
+        }
+    }
+
+    if ($_POST['type'] == "add_complaint") {
+        $cid = $_POST['cid'];
+        $note = $_POST['note'];
+
+        $db = new DbConnect;
+        $sql = "INSERT INTO `complaint`( `note`, `cid`) VALUES ('$note','$cid');";
+
+        if (!$conn = $db->connect()) {
+            echo "SQL Error";
+            exit();
+        } else {
+            $stmt = $conn->prepare($sql);
+            $stmt->execute();
+            $myObj3 = new \stdClass();
+            $myObj3->Status = "1";
+            $myJSON3 = json_encode($myObj3);
+            echo "$myJSON3";
+        }
+    }
+
+    if ($_POST['type'] == "update_station_status") {
+        $LID = $_POST['LID'];
+        $opn_cls_status = $_POST['opn_cls_status'];
+        $queue_status = $_POST['queue_status'];
+
+        $db = new DbConnect;
+        $conn = $db->connect();
+        $sql = "UPDATE `station` SET `opn_cls_status`='$opn_cls_status', `queue_status`='$queue_status' WHERE `lid`='$LID';";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        $myObj3 = new \stdClass();
+        $myObj3->Status = "1";
+        $myJSON3 = json_encode($myObj3);
+        echo "$myJSON3";
+    }
+
+    if ($_POST['type'] == "update_fuel_arrival_status") {
+        $fa_id = $_POST['fa_id'];
+        $fid = $_POST['fid'];
+        $sid = $_POST['sid'];
+        $amount = $_POST['amount'];
+        $status = $_POST['status'];
+
+        $db = new DbConnect;
+        $conn = $db->connect();
+        $sql = "UPDATE `fuel_arrival` SET `status`='$status' WHERE `fa_id`='$fa_id';";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        updateFuelStock($fid, $sid, $amount);
+        $myObj3 = new \stdClass();
+        $myObj3->Status = "1";
+        $myJSON3 = json_encode($myObj3);
+        echo "$myJSON3";
+    }
+
+    if ($_POST['type'] == "remove_special_qr") {
+        $SPID = $_POST['SPID'];
+        $db = new DbConnect;
+        $conn = $db->connect();
+        $stmt = $conn->prepare("UPDATE `special_qr` SET `status`=1 WHERE `SPID` ='$SPID' ");
+        $stmt->execute();
+        $rec = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if ($stmt->rowCount() > 0) {
+            echo json_encode($rec);
+        } else {
+            echo null;
+        }
+    }
+
+} else {
+    echo "error !";
 }
 
 ?>
-

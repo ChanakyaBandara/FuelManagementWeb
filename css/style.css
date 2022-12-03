@@ -3,7 +3,7 @@
 
   * Bootstrap functions
   * Template variables
-  * SCSS Compass Functions
+  * SCSS Compass form
   * Boostrap Main SCSS
   * Template mixins
     + Animation Mixins
@@ -3339,8 +3339,8 @@ pre {
   font-size: 0.8125rem;
   font-weight: 400;
   line-height: 1;
-  color: #ffffff;
-  background-color: #2C3E50;
+  color: #000;
+  background-color: #f5f5f5;
   background-clip: padding-box;
   border: 1px solid #ced4da;
   border-radius: 2px;
@@ -3383,7 +3383,7 @@ pre {
 
 select.form-control:focus::-ms-value {
   color: #ffffff;
-  background-color: #2C3E50; }
+  background-color: #eaeaea; }
 
 .form-control-file,
 .form-control-range {
@@ -12224,21 +12224,21 @@ code {
 
 .input-group-append,
 .input-group-prepend {
-  color: #c9c8c8;
+  color: #000;
   width: auto;
   border: none; }
   .input-group-append .input-group-text,
   .input-group-prepend .input-group-text {
-    border-color: #ebedf2;
+    border-color: #000;
     padding: 0.94rem 0.75rem;
-    color: #c9c8c8; }
+    color: #000; }
 
 .form-control {
   border: 1px solid #ebedf2;
   font-family: "ubuntu-regular", sans-serif;
   font-size: 0.8125rem; }
   .form-control:focus {
-    background-color: #2C3E50;
+    background-color: #eeeeee;
     color: #000;
     outline: none; }
 
@@ -12246,7 +12246,7 @@ select.form-control {
   padding: .4375rem .75rem;
   border: 0;
   outline: 1px solid #ebedf2;
-  color: #c9c8c8; }
+  color: #000; }
   select.form-control:focus {
     outline: 1px solid #ebedf2; }
   select.form-control.border-primary {

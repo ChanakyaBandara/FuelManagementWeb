@@ -273,7 +273,7 @@ if (isset($_POST['type'])) {
         $cid = $_POST['cid'];
         $db = new DbConnect;
         $conn = $db->connect();
-        $stmt = $conn->prepare("SELECT `record`.*,`vehicle`.`reg_no`,`station`.`name`,`station`.`address`,`fuel_type`.`fuel` FROM `record`,`vehicle`,`station`,`fuel_type` WHERE `record`.`vid`=`vehicle`.`vid` AND `record`.`sid`=`station`.`sid` AND `vehicle`.`fid`=`fuel_type`.`fid` AND `vehicle`.`cid` ='$cid' ");
+        $stmt = $conn->prepare("SELECT `record`.*,`vehicle`.`reg_no`,`station`.`name`,`station`.`address`,`fuel_type`.`fuel` FROM `record`,`vehicle`,`station`,`fuel_type` WHERE `record`.`vid`=`vehicle`.`vid` AND `record`.`sid`=`station`.`sid` AND `record`.`fid`=`fuel_type`.`fid` AND `vehicle`.`cid` ='$cid' ");
         $stmt->execute();
         $rec = $stmt->fetchAll(PDO::FETCH_ASSOC);
         if ($stmt->rowCount() > 0) {
@@ -301,7 +301,7 @@ if (isset($_POST['type'])) {
         $sid = $_POST['sid'];
         $db = new DbConnect;
         $conn = $db->connect();
-        $stmt = $conn->prepare("SELECT `record`.*,`vehicle`.`reg_no`,`station`.`name`,`station`.`address`,`fuel_type`.`fuel` FROM `record`,`vehicle`,`station`,`fuel_type` WHERE `record`.`vid`=`vehicle`.`vid` AND `record`.`sid`=`station`.`sid` AND `vehicle`.`fid`=`fuel_type`.`fid` AND `station`.`sid` ='$sid' ");
+        $stmt = $conn->prepare("SELECT `record`.*,`vehicle`.`reg_no`,`station`.`name`,`station`.`address`,`fuel_type`.`fuel` FROM `record`,`vehicle`,`station`,`fuel_type` WHERE `record`.`vid`=`vehicle`.`vid` AND `record`.`sid`=`station`.`sid` AND `record`.`fid`=`fuel_type`.`fid` AND `station`.`sid` ='$sid' ");
         $stmt->execute();
         $rec = $stmt->fetchAll(PDO::FETCH_ASSOC);
         if ($stmt->rowCount() > 0) {
@@ -468,7 +468,7 @@ if (isset($_POST['type'])) {
         $sid = $_POST['sid'];
         $db = new DbConnect;
         $conn = $db->connect();
-        $stmt = $conn->prepare("SELECT `fuel_arrival`.*,`fuel_type`.`fuel` FROM `fuel_arrival`,`fuel_type` WHERE `fuel_arrival`.`sid` ='$sid' ");
+        $stmt = $conn->prepare("SELECT `fuel_arrival`.*,`fuel_type`.`fuel` FROM `fuel_arrival`,`fuel_type` WHERE `fuel_arrival`.`ft_id`=`fuel_type`.`fid` AND `fuel_arrival`.`sid` ='$sid' ");
         $stmt->execute();
         $rec = $stmt->fetchAll(PDO::FETCH_ASSOC);
         if ($stmt->rowCount() > 0) {
@@ -541,7 +541,7 @@ if (isset($_POST['type'])) {
         $amount = $_POST['amount'];
 
         $db = new DbConnect;
-        $sql = "INSERT INTO `record`( `vid`, `sid`, `amount`)  VALUES ('$vid','$sid','$amount');";
+        $sql = "INSERT INTO `record`( `vid`, `sid`, `fid`, `amount`)  VALUES ('$vid','$sid','$fid','$amount');";
         $sql .= "UPDATE `stock` SET available_amount = available_amount - $amount WHERE `sid`='$sid' AND `fid`='$fid';";
 
         if (!$conn = $db->connect()) {

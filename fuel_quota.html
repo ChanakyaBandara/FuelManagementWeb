@@ -94,13 +94,25 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="special_QR_request.html">
-              <span class="menu-title">QR Requests</span>
+              <span class="menu-title">Special QR Requests</span>
               <i class="mdi mdi-basket menu-icon"></i>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="fuel_quota_extends.html">
               <span class="menu-title">Quota Extends</span>
+              <i class="mdi mdi-panorama menu-icon"></i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="view_bowser_arrivals.html">
+              <span class="menu-title">Bowser Dispatch</span>
+              <i class="mdi mdi-panorama menu-icon"></i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="view_complaints.html">
+              <span class="menu-title">Complaints</span>
               <i class="mdi mdi-panorama menu-icon"></i>
             </a>
           </li>
@@ -168,7 +180,7 @@
               <div class="card" style="background-color: #2C3E50;">
                 <div class="card-body">
                   <h4 class="card-title">Update Membership Packages</h4><br>
-                  <form class="form-sample ml-5" id="quotaform" method="post" action="PHP/admin.php">
+                  <form class="form-sample ml-5" id="quotaform">
                     <div class="row">
                       <div class="col-md-8">
                         <div class="form-group row">
@@ -235,6 +247,7 @@
   <!-- container-scroller -->
   <!-- plugins:js -->
   <script src="vendors/js/vendor.bundle.base.js"></script>
+  <script src="LoadingSpinner/loading-spinner.js"></script>
   <!-- endinject -->
   <!-- Plugin js for this page -->
   <!-- End plugin js for this page -->
@@ -243,8 +256,12 @@
   <script src="js/hoverable-collapse.js"></script>
   <script src="js/misc.js"></script>
   <script src="js/main.js"></script>
-  <script>viewfulequota()</script>
-  <script src="LoadingSpinner/loading-spinner.js"></script>
+  <script language="javascript">
+    var quotaResult;
+    $(document).ready(function () {
+      quotaResult = viewfulequota()
+    });
+  </script>
   <!-- endinject -->
   <!-- Custom js for this page -->
   <!-- End custom js for this page -->

@@ -5,10 +5,12 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Manage Payments</title>
+  <title>Upload Timetable</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="vendors/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="vendors/css/vendor.bundle.base.css">
+
+  <link rel="stylesheet" href="css/bootstrap-datepicker3.min.css">
   <!-- endinject -->
   <!-- Plugin css for this page -->
   <!-- End plugin css for this page -->
@@ -127,16 +129,14 @@
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
-          <div class="row">
-            <div class="col-12 grid-margin">
-              <div class="card" style="background-color: #2C3E50;">
-                <div class="card-body">
-                  <h4 class="card-title">Member Payments</h4>
-                  <div class="table-responsive">
-                    <table class="table table-hover" id="tblSPQR">
-                    </table>
-                  </div>
-                </div>
+          <div class="col-12 grid-margin stretch-card">
+            <div class="card" style="background-color: #2C3E50;">
+              <div class="card-body">
+                <h4 class="card-title">Pending Approvals</h4>
+                <br>
+                </p>
+                <table class="table table-hover" id="tblComplaints">
+                </table>
               </div>
             </div>
           </div>
@@ -146,7 +146,8 @@
         <footer class="footer">
           <div class="d-sm-flex justify-content-center justify-content-sm-between">
             <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2020 <a
-                href="https://www.Synn~Labz.com/" target="_blank">Synn~Labz</a>. All rights reserved.</span>
+                href="https://www.bootstrapdash.com/" target="_blank">Synn~Labz</a>. All rights
+              reserved.</span>
           </div>
         </footer>
         <!-- partial -->
@@ -165,6 +166,7 @@
   <script src="js/off-canvas.js"></script>
   <script src="js/hoverable-collapse.js"></script>
   <script src="js/misc.js"></script>
+  <script src="js/bootstrap-datepicker.min.js"></script>
   <script src="LoadingSpinner/loading-spinner.js"></script>
   <!-- endinject -->
   <!-- Custom js for this page -->
@@ -172,7 +174,7 @@
   <script language="javascript" src="js/main.js"></script>
   <script language="javascript">
     $(document).ready(function () {
-      loadSPQR();
+      loadComplaints();
     });
   </script>
 </body>

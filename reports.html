@@ -93,13 +93,25 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="special_QR_request.html">
-              <span class="menu-title">QR Requests</span>
+              <span class="menu-title">Special QR Requests</span>
               <i class="mdi mdi-basket menu-icon"></i>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="fuel_quota_extends.html">
               <span class="menu-title">Quota Extends</span>
+              <i class="mdi mdi-panorama menu-icon"></i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="view_bowser_arrivals.html">
+              <span class="menu-title">Bowser Dispatch</span>
+              <i class="mdi mdi-panorama menu-icon"></i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="view_complaints.html">
+              <span class="menu-title">Complaints</span>
               <i class="mdi mdi-panorama menu-icon"></i>
             </a>
           </li>
@@ -118,20 +130,9 @@
             <div class="col-12 grid-margin stretch-card">
               <div class="card" style="background-color: #2C3E50;">
                 <div class="card-body">
-                  <h2 class="card-title">Gallery</h2>
+                  <h2 class="card-title">Reports</h2>
                   <br>
-                  
-                  <div class="row mt-3">
-                    <div class="col-6 pr-1">
-                      <img src="images/dashboard/img_1.jpg" class="mb-2 mw-100 w-100 rounded" alt="image">
-                      <img src="images/dashboard/img_4.jpg" class="mw-100 w-100 rounded" alt="image">
-                    </div>
-                    <div class="col-6 pl-1">
-                      <img src="images/dashboard/img_2.jpg" class="mb-2 mw-100 w-100 rounded" alt="image">
-                      <img src="images/dashboard/img_3.jpg" class="mw-100 w-100 rounded" alt="image">
-                    </div>
-                  </div>
-                  
+                  <div id="curve_chart" style="width: 900px; height: 500px; padding: 25px;"></div>                  
                 </div>
               </div>
             </div>
@@ -154,6 +155,7 @@
   <!-- container-scroller -->
   <!-- plugins:js -->
   <script src="vendors/js/vendor.bundle.base.js"></script>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <!-- endinject -->
   <!-- Plugin js for this page -->
   <!-- End plugin js for this page -->
@@ -161,6 +163,12 @@
   <script src="js/off-canvas.js"></script>
   <script src="js/hoverable-collapse.js"></script>
   <script src="js/misc.js"></script>
+  <script src="js/main.js"></script>
+  <script language="javascript">
+    $(document).ready(function () {
+      getReportData();
+    });
+  </script>
   <!-- endinject -->
   <!-- Custom js for this page -->
   <!-- End custom js for this page -->

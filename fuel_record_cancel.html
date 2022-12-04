@@ -5,7 +5,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Manage Exercise</title>
+  <title>Manage Payments</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="vendors/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="vendors/css/vendor.bundle.base.css">
@@ -69,93 +69,77 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="memberships.html">
-              <span class="menu-title">Memberships</span>
+            <a class="nav-link" href="view_stations.html">
+              <span class="menu-title">Stations</span>
               <i class="mdi mdi-bank menu-icon"></i>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="profiles.html">
-              <span class="menu-title">Member Profiles</span>
+            <a class="nav-link" href="view_customers.html">
+              <span class="menu-title">Customers</span>
               <i class="mdi mdi-account menu-icon"></i>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="packages.html">
-              <span class="menu-title">Packages</span>
+            <a class="nav-link" href="view_vehicles.html">
+              <span class="menu-title">Vehicles</span>
+              <i class="mdi mdi-account menu-icon"></i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="fuel_quota.html">
+              <span class="menu-title">Quota</span>
               <i class="mdi mdi-basket menu-icon"></i>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="exercise.html">
-              <span class="menu-title">Exercise</span>
+            <a class="nav-link" href="special_QR_request.html">
+              <span class="menu-title">Special QR Requests</span>
               <i class="mdi mdi-basket menu-icon"></i>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="gallery.html">
-              <span class="menu-title">Gallery</span>
+            <a class="nav-link" href="fuel_quota_extends.html">
+              <span class="menu-title">Quota Extends</span>
               <i class="mdi mdi-panorama menu-icon"></i>
             </a>
           </li>
-
+          <li class="nav-item">
+            <a class="nav-link" href="view_bowser_arrivals.html">
+              <span class="menu-title">Bowser Dispatch</span>
+              <i class="mdi mdi-panorama menu-icon"></i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="fuel_record_cancel.html">
+              <span class="menu-title">Cancel Requests</span>
+              <i class="mdi mdi-panorama menu-icon"></i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="view_complaints.html">
+              <span class="menu-title">Complaints</span>
+              <i class="mdi mdi-panorama menu-icon"></i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="reports.html">
+              <span class="menu-title">Reports</span>
+              <i class="mdi mdi-panorama menu-icon"></i>
+            </a>
+          </li>
         </ul>
       </nav>
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
           <div class="row">
-            <div class="col-12 grid-margin stretch-card">
-              <div class="card" style="background-color: #2C3E50;">
-                <div class="card-body">
-                  <h4 class="card-title">Add Exercise</h4>
-                  <p class="card-description"> Add your exercise details here </p>
-                  <form class="forms-sample">
-                    <div class="form-group">
-                      <!-- Image Name -->
-                      <label for="imageview">Image*</label>
-                      <img id="imageview" style="width: 300px; height: 300px; max-width: 100%; max-height: 100%;">
-                      <br>
-                      <input type="file" id="imageselect" class="form-control" required="required">
-                    </div>
-                    <div class="form-group">
-                      <label for="Exercise">Name</label>
-                      <input type="text" class="form-control" id="Exercise" placeholder="Name">
-                    </div>
-                    <div class="form-group">
-                      <label for="Cat">Catogary</label>
-                      <select name="Cat" id="Cat"  class="form-control" >
-                        <option value="Sholder">Sholder</option>
-                        <option value="Back">Back</option>
-                        <option value="Arm">Arm</option>
-                        <option value="ABS">ABS</option>
-                        <option value="Leg">Leg</option>
-                        <option value="Chest">Chest</option>
-                      </select>
-                    </div>
-                    <button id="submit" class="btn btn-primary mr-2 float-right">Submit</button>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row">
             <div class="col-12 grid-margin">
               <div class="card" style="background-color: #2C3E50;">
                 <div class="card-body">
-                  <h4 class="card-title">Exercises List</h4>
+                  <h4 class="card-title">Cancellation Requests</h4>
                   <div class="table-responsive">
-                    <table class="table">
-                      <thead>
-                        <tr>
-                          <th> ##</th>
-                          <th> Image</th>
-                          <th> Name </th>
-                          <th> Catagory </th>
-                        </tr>
-                      </thead>
-                      <tbody id="extbl">
-                      </tbody>
+                    <table class="table table-hover" id="tblRecordCancel">
                     </table>
                   </div>
                 </div>
@@ -187,12 +171,16 @@
   <script src="js/off-canvas.js"></script>
   <script src="js/hoverable-collapse.js"></script>
   <script src="js/misc.js"></script>
-
   <script src="LoadingSpinner/loading-spinner.js"></script>
-  <script src="js/addExercise.js"></script>
   <!-- endinject -->
   <!-- Custom js for this page -->
   <!-- End custom js for this page -->
+  <script language="javascript" src="js/main.js"></script>
+  <script language="javascript">
+    $(document).ready(function () {
+      loadCancelRecords();
+    });
+  </script>
 </body>
 
 </html>

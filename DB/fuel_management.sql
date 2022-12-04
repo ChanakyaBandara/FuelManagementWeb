@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 02, 2022 at 08:26 PM
+-- Generation Time: Dec 03, 2022 at 12:21 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -139,6 +139,7 @@ CREATE TABLE `record` (
   `timestamp` datetime NOT NULL DEFAULT current_timestamp(),
   `vid` int(11) NOT NULL,
   `sid` int(11) NOT NULL,
+  `fid` int(11) NOT NULL,
   `amount` int(11) NOT NULL,
   `status` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -244,6 +245,16 @@ CREATE TABLE `vehicle_type` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- Dumping data for table `vehicle_type`
+--
+
+INSERT INTO `vehicle_type` (`vtid`, `type`, `description`, `allowed_quota`) VALUES
+(1, 'Bike', '', 4),
+(2, 'Car/Van/Pickup', '', 20),
+(3, 'Bus/Lorry', '', 40),
+(4, 'Three Wheel', '', 10);
+
+--
 -- Indexes for dumped tables
 --
 
@@ -301,7 +312,8 @@ ALTER TABLE `login`
 ALTER TABLE `record`
   ADD PRIMARY KEY (`rid`),
   ADD KEY `sid` (`sid`),
-  ADD KEY `vid` (`vid`);
+  ADD KEY `vid` (`vid`),
+  ADD KEY `fid` (`fid`);
 
 --
 -- Indexes for table `special_qr`
@@ -434,7 +446,7 @@ ALTER TABLE `vehicle`
 -- AUTO_INCREMENT for table `vehicle_type`
 --
 ALTER TABLE `vehicle_type`
-  MODIFY `vtid` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `vtid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables
@@ -476,7 +488,8 @@ ALTER TABLE `fuel_arrival`
 --
 ALTER TABLE `record`
   ADD CONSTRAINT `record_ibfk_1` FOREIGN KEY (`sid`) REFERENCES `station` (`sid`),
-  ADD CONSTRAINT `record_ibfk_2` FOREIGN KEY (`vid`) REFERENCES `vehicle` (`vid`);
+  ADD CONSTRAINT `record_ibfk_2` FOREIGN KEY (`vid`) REFERENCES `vehicle` (`vid`),
+  ADD CONSTRAINT `record_ibfk_3` FOREIGN KEY (`fid`) REFERENCES `fuel_type` (`fid`);
 
 --
 -- Constraints for table `special_qr`

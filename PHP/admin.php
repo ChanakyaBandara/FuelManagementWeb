@@ -258,6 +258,37 @@ if (isset($_POST['updateExtend'])) {
 	}
 }
 
+if (isset($_POST['loadCancelRecords'])) {
+	$db = new DbConnect;
+	if (!$conn = $db->connect()) {
+		echo "SQL Error";
+		exit();
+	} else {
+		$stmt = $conn->prepare("SELECT `record`.*,`vehicle`.`reg_no`,`station`.`name`,`station`.`address`,`fuel_type`.`fuel` FROM `record`,`vehicle`,`station`,`fuel_type` WHERE `record`.`vid`=`vehicle`.`vid` AND `record`.`sid`=`station`.`sid` AND `record`.`fid`=`fuel_type`.`fid` AND `record`.`status` IN (1,2);");
+		$stmt->execute();
+		$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		echo json_encode($result);
+	}
+}
+
+if (isset($_POST['cancelRecord'])) {
+	$rid = $_POST['cancelRecord'];
+	$db = new DbConnect;
+	if (!$conn = $db->connect()) {
+		echo "SQL Error";
+		exit();
+	} else {
+		$sql = "UPDATE `stock`,`record` SET `stock`.`available_amount` = `stock`.`available_amount` + `record`.`amount` WHERE `stock`.`sid`=`record`.`sid` AND `stock`.`fid`=`record`.`fid` AND `record`.`rid`='$rid';";
+		$sql .= "UPDATE `record` SET `status`=2 WHERE `rid`='$rid';";
+		$stmt = $conn->prepare($sql);
+		$stmt->execute();
+		$myObj3 = new \stdClass();
+		$myObj3->Status = "1";
+		$myJSON3 = json_encode($myObj3);
+		echo "$myJSON3";
+	}
+}
+
 if (isset($_POST['vtid_1'], $_POST['vtid_2'], $_POST['vtid_3'], $_POST['vtid_4'])) {
 	$vtid_1 = $_POST['vtid_1'];
 	$vtid_2 = $_POST['vtid_2'];

@@ -367,6 +367,42 @@ function loadComplaints() {
     });
 }
 
+function loadCancelRecords() {
+    $.ajax({
+        url: "PHP/admin.php",
+        method: "post",
+        data: "loadCancelRecords=" + 5,
+    }).done(function (result) {
+        result = JSON.parse(result);
+        console.log(result);
+        $("#tblRecordCancel").empty();
+        $("#tblRecordCancel").append(
+            "<thead><th>Cancellation ID</th><th>Date Time</th><th>Vehicle Reg</th><th>Fuel Station</th><th>Fuel Type</th><th>Amount</th><th>Status</th></thead><tbody>"
+        );
+        result.forEach(function (result) {
+            const badge = cancellationBadge(result.status, result.rid);
+            $("#tblRecordCancel").append(
+                "<tr><td>" +
+                result.rid +
+                "</td><td>" +
+                result.timestamp +
+                "</td><td>" +
+                result.reg_no +
+                "</td><td>" +
+                result.name +
+                "</td><td>" +
+                result.fuel +
+                "</td><td>" +
+                result.amount +
+                "</td><td>" +
+                badge +
+                "</td></tr>"
+            );
+        });
+        $("#tblRecordCancel").append("</tbody>");
+    });
+}
+
 function getReDirectURL(Id, type) {
     switch (type) {
         case STATION:
@@ -386,6 +422,16 @@ function extendBadge(sts, vlv) {
         bg = "<button onclick='extendAccept(this.value)' class='btn btn-sm bg-warning' value=" + vlv + ">Activate</button>";
     } else if (sts == 1) {
         bg = "<span class='badge badge-sm badge-success'>Active</span>";
+    }
+    return bg;
+}
+
+function cancellationBadge(sts, vlv) {
+    var bg;
+    if (sts == 1) {
+        bg = "<button onclick='cancelRecord(this.value)' class='btn btn-sm bg-danger' value=" + vlv + ">Cancel</button>";
+    } else if (sts == 2) {
+        bg = "<span class='badge badge-sm badge-warning'>Cancelled</span>";
     }
     return bg;
 }
@@ -428,6 +474,20 @@ function extendAccept(value) {
         result = JSON.parse(result);
         if (result.Status = "1") {
             loadExtends();
+        }
+    });
+}
+
+function cancelRecord(value) {
+    $.ajax({
+        url: "PHP/admin.php",
+        method: "post",
+        data: "cancelRecord=" + value,
+    }).done(function (result) {
+        console.log(result);
+        result = JSON.parse(result);
+        if (result.Status = "1") {
+            loadCancelRecords();
         }
     });
 }

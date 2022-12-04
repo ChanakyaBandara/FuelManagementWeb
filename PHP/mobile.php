@@ -142,7 +142,7 @@ if (isset($_POST['type'])) {
 
         $LID = creat_user($email, $Password, 3);
         $db = new DbConnect;
-        $sql = "INSERT INTO `station`(`name`, `email`, `reg_no`, `city`, `address`, `phone`, `lat`, `lon`, `lid`)  VALUES ('$name','$email','$reg_no',$city,'$address','$phone','$lat','$lon','$LID');";
+        $sql = "INSERT INTO `station`(`name`, `email`, `reg_no`, `city`, `address`, `phone`, `lat`, `lon`, `lid`)  VALUES ('$name','$email','$reg_no','$city','$address','$phone','$lat','$lon','$LID');";
 
         if (!$conn = $db->connect()) {
             echo "SQL Error";
@@ -630,6 +630,18 @@ if (isset($_POST['type'])) {
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         updateFuelStock($fid, $sid, $amount);
+        $myObj3 = new \stdClass();
+        $myObj3->Status = "1";
+        $myJSON3 = json_encode($myObj3);
+        echo "$myJSON3";
+    }
+
+    if ($_POST['type'] == "remove_record") {
+        $rid = $_POST['rid'];
+        $db = new DbConnect;
+        $conn = $db->connect();
+        $stmt = $conn->prepare("UPDATE `record` SET `status`=1 WHERE `rid` ='$rid' ");
+        $stmt->execute();
         $myObj3 = new \stdClass();
         $myObj3->Status = "1";
         $myJSON3 = json_encode($myObj3);

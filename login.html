@@ -39,7 +39,7 @@
               <div class="col-lg-6">
                 <div class="p-5">
                   <div class="brand-logo" style="width: 150px; margin-left: 5.5%; margin-bottom: 20px;">
-                    <img src="images/logo-1.png">
+                    <img src="images/logo-2.png">
                   </div>
                   <div class="text-center">
                     <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
@@ -54,15 +54,12 @@
                         placeholder="Password">
                     </div>
 
-                    <a href="index.html" class="btn btn-primary btn-user btn-block">
+                    <button onclick="return login()" class="btn btn-primary btn-user btn-block">
                       Login
-                    </a>
+                    </button>
                     <hr>
 
                   </form>
-                  <div class="text-center mt-4 font-weight-light"> Don't have an account? <a href="register.html"
-                      class="text-primary">Create</a>
-                  </div>
                 </div>
               </div>
             </div>
@@ -84,6 +81,18 @@
   <script src="js/off-canvas.js"></script>
   <script src="js/hoverable-collapse.js"></script>
   <script src="js/misc.js"></script>
+  <script lang="javascript">
+    function login() {
+      const exampleInputEmail = document.getElementById("exampleInputEmail").value;
+      const exampleInputPassword = document.getElementById("exampleInputPassword").value;
+      if (exampleInputEmail == "admin@gmail.com" && exampleInputPassword == "admin") {
+        location.replace("http://localhost/FuelManagementWeb/index.html"); 
+        return false;
+      } else {
+        alert("Username or password invalide!");
+      }
+    }
+  </script>
   <!-- endinject -->
 </body>
 

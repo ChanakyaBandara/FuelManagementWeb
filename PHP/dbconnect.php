@@ -1,7 +1,7 @@
 <?php 
 	class DbConnect {
 		private $host = 'localhost';
-		private $dbName = 'fuel_management';
+		private $dbName = 'api_doc_generator';
 		private $user = 'root';
 		private $pass = '';
 

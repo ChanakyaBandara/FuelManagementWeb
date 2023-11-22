@@ -1,0 +1,40 @@
+<UI layout='objectempty'>
+    <Section id='main'>
+        <!-- <StyleSheet src='https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&family=Source+Code+Pro:wght@300;400;700&display=swap|Inter:wght@600&display=swap' /> -->
+        <StyleSheet src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+        <StyleSheet src="#{resourceurl}/#{app}/apidocumenttool/style/main.css" />
+        <ScriptSource src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous" />
+        <ScriptSource src="#{resourceurl}/#{app}/apidocumenttool/script/ui_componets.js" />
+        <ScriptSource src="#{resourceurl}/#{app}/apidocumenttool/script/api_format_validator.js" />
+        <ScriptSource src="#{resourceurl}/#{app}/apidocumenttool/script/apis/system.js" />
+        <ScriptSource src="#{resourceurl}/#{app}/apidocumenttool/script/apis/location.js" />
+        <ScriptSource src="#{resourceurl}/#{app}/apidocumenttool/script/apis/user.js" />
+        <ScriptSource src="#{resourceurl}/#{app}/apidocumenttool/script/apis/facility.js" />
+        <ScriptSource src="#{resourceurl}/#{app}/apidocumenttool/script/apis/organization.js" />
+        <ScriptSource src="#{resourceurl}/#{app}/apidocumenttool/script/apis/workrequest.js" />
+        <ScriptSource src="#{resourceurl}/#{app}/apidocumenttool/script/apis/inventory.js" />
+        <ScriptSource src="#{resourceurl}/#{app}/apidocumenttool/script/apis/property.js" />
+        <ScriptSource src="#{resourceurl}/#{app}/apidocumenttool/script/apis/cwo.js" />
+        <ScriptSource src="#{resourceurl}/#{app}/apidocumenttool/script/apis/asset.js" />
+        <ScriptSource src="#{resourceurl}/#{app}/apidocumenttool/script/apis.js" />
+        <ScriptSource src="#{resourceurl}/#{app}/apidocumenttool/script/index.js" />
+        
+        <Script>
+            <![CDATA[
+                $(document).ready(function(){
+                    initPage()
+                })
+            ]]>
+        </Script>
+
+        <Field type='html'>
+            <![CDATA[
+                <div class="page">
+                    <div id="sidebar" class="sidebar"></div>
+                    <div  id="content" class="content"></div>
+                </div>
+                <div  id="popup_page"></div>  
+            ]]>
+        </Field>
+    </Section>
+</UI>

@@ -24,7 +24,8 @@
   <div class="container-scroller">
     <!-- partial:../../partials/_navbar.html -->
     <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
-      <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center" style="background-color: #2C3E50;">
+      <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center"
+        style="background-color: #2C3E50;">
         <a class="navbar-brand brand-logo" href="../../index.html"><img src="images/logo-1.png" alt="logo" /></a>
         <a class="navbar-brand brand-logo-mini" href="../../index.html"><img src="images/logo-mini.svg"
             alt="logo" /></a>
@@ -68,57 +69,15 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="view_stations.html">
-              <span class="menu-title">Stations</span>
+            <a class="nav-link" href="api_docs.html">
+              <span class="menu-title">API Docs</span>
               <i class="mdi mdi-bank menu-icon"></i>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="view_customers.html">
-              <span class="menu-title">Customers</span>
+            <a class="nav-link" href="add_doc.html">
+              <span class="menu-title">Add New Doc</span>
               <i class="mdi mdi-account menu-icon"></i>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="view_vehicles.html">
-              <span class="menu-title">Vehicles</span>
-              <i class="mdi mdi-account menu-icon"></i>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="fuel_quota.html">
-              <span class="menu-title">Quota</span>
-              <i class="mdi mdi-basket menu-icon"></i>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="special_QR_request.html">
-              <span class="menu-title">Special QR Requests</span>
-              <i class="mdi mdi-basket menu-icon"></i>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="fuel_quota_extends.html">
-              <span class="menu-title">Quota Extends</span>
-              <i class="mdi mdi-panorama menu-icon"></i>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="view_bowser_arrivals.html">
-              <span class="menu-title">Bowser Dispatch</span>
-              <i class="mdi mdi-panorama menu-icon"></i>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="view_complaints.html">
-              <span class="menu-title">Complaints</span>
-              <i class="mdi mdi-panorama menu-icon"></i>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="reports.html">
-              <span class="menu-title">Reports</span>
-              <i class="mdi mdi-panorama menu-icon"></i>
             </a>
           </li>
         </ul>
@@ -130,7 +89,7 @@
             <div class="col-12 grid-margin">
               <div class="card" style="background-color: #2C3E50;">
                 <div class="card-body">
-                  <h4 class="card-title">Customer Details</h4>
+                  <h4 class="card-title">Special QR Request</h4>
                   <form class="form-sample ml-8" id="quotaform" method="post" action="PHP/admin.php">
                     <div class="row">
                       <div class="col-sm">
@@ -147,9 +106,9 @@
                         <div class="row">
                           <div class="col-md-12">
                             <div class="form-group row">
-                              <label class="col-sm-3 col-form-label" style="color: #ffffff;">Name</label>
+                              <label class="col-sm-3 col-form-label" style="color: #ffffff;">Ref No</label>
                               <div class="col-sm-9">
-                                <label type="text" id="txtFr" class="form-control">Name</label>
+                                <label type="text" id="txtFr" class="form-control">Ref No</label>
                               </div>
                             </div>
                           </div>
@@ -157,9 +116,9 @@
                         <div class="row">
                           <div class="col-md-12">
                             <div class="form-group row">
-                              <label class="col-sm-3 col-form-label" style="color: #ffffff;">NIC</label>
+                              <label class="col-sm-3 col-form-label" style="color: #ffffff;">Name</label>
                               <div class="col-sm-9">
-                                <label type="text" id="txtFr" class="form-control">NIC</label>
+                                <label type="text" id="txtFr" class="form-control">Name</label>
                               </div>
                             </div>
                           </div>
@@ -169,9 +128,9 @@
                         <div class="row">
                           <div class="col-md-12">
                             <div class="form-group row">
-                              <label class="col-sm-3 col-form-label" style="color: #ffffff;">Location</label>
+                              <label class="col-sm-3 col-form-label" style="color: #ffffff;">Purpose</label>
                               <div class="col-sm-9">
-                                <label type="text" id="txtFr" class="form-control">Location</label>
+                                <label type="text" id="txtFr" class="form-control">Purpose</label>
                               </div>
                             </div>
                           </div>
@@ -179,21 +138,28 @@
                         <div class="row">
                           <div class="col-md-12">
                             <div class="form-group row">
-                              <label class="col-sm-3 col-form-label" style="color: #ffffff;">Phone</label>
+                              <label class="col-sm-3 col-form-label" style="color: #ffffff;">Amount</label>
                               <div class="col-sm-9">
-                                <label type="text" id="txtFr" class="form-control">Phone</label>
+                                <label type="text" id="txtFr" class="form-control">Amount</label>
                               </div>
                             </div>
                           </div>
                         </div>
-                        <div class="row">
-                          <div class="col-md-12">
-                            <div class="form-group row">
-                              <label class="col-sm-3 col-form-label" style="color: #ffffff;">Example</label>
-                              <div class="col-sm-9">
-                                <label type="text" id="txtFr" class="form-control">Example</label>
-                              </div>
-                            </div>
+                        <div class="row" style="display: block;">
+                          <div class="col-sm" style="position: absolute; text-align: right;">
+                            <button type="submit" name="UpdateQuota" id="Updatebtn"
+                              class="btn btn-success btn-icon-text"> Accept <i
+                                class="mdi mdi-check-all btn-icon-append"></i></button>
+                            <button type="submit" name="UpdateQuota" id="Updatebtn"
+                              class="btn btn-danger btn-icon-text"> Reject <i
+                                class="mdi mdi-check-all btn-icon-append"></i></button>
+                          </div>
+                        </div>
+                        <div class="row" style="display: none;">
+                          <div class="col-sm" style="position: absolute; text-align: right;">
+                            <button type="submit" name="UpdateQuota" id="Updatebtn"
+                              class="btn btn-success btn-icon-text"> Update <i
+                                class="mdi mdi-check-all btn-icon-append"></i></button>
                           </div>
                         </div>
                       </div>
@@ -230,12 +196,13 @@
   <script src="js/misc.js"></script>
   <script src="js/main.js"></script>
   <script src="LoadingSpinner/loading-spinner.js"></script>
+
   <script>
     window.onload = function () {
       const QueryString = window.location.search;
       const urlParams = new URLSearchParams(QueryString);
       if (urlParams.has("ID")) {
-        viewcustomerdetails(urlParams.get("ID"));
+        viewvehicaldetails(urlParams.get("ID"));
       }
     }
   </script>

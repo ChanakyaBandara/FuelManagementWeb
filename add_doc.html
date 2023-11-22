@@ -5,7 +5,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Manage Profiles</title>
+  <title>Add Documentaion</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="vendors/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="vendors/css/vendor.bundle.base.css">
@@ -69,57 +69,15 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="view_stations.html">
-              <span class="menu-title">Stations</span>
+            <a class="nav-link" href="api_docs.html">
+              <span class="menu-title">API Docs</span>
               <i class="mdi mdi-bank menu-icon"></i>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="view_customers.html">
-              <span class="menu-title">Customers</span>
+            <a class="nav-link" href="add_doc.html">
+              <span class="menu-title">Add New Doc</span>
               <i class="mdi mdi-account menu-icon"></i>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="view_vehicles.html">
-              <span class="menu-title">Vehicles</span>
-              <i class="mdi mdi-account menu-icon"></i>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="fuel_quota.html">
-              <span class="menu-title">Quota</span>
-              <i class="mdi mdi-basket menu-icon"></i>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="special_QR_request.html">
-              <span class="menu-title">Special QR Requests</span>
-              <i class="mdi mdi-basket menu-icon"></i>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="fuel_quota_extends.html">
-              <span class="menu-title">Quota Extends</span>
-              <i class="mdi mdi-panorama menu-icon"></i>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="view_bowser_arrivals.html">
-              <span class="menu-title">Bowser Dispatch</span>
-              <i class="mdi mdi-panorama menu-icon"></i>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="view_complaints.html">
-              <span class="menu-title">Complaints</span>
-              <i class="mdi mdi-panorama menu-icon"></i>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="reports.html">
-              <span class="menu-title">Reports</span>
-              <i class="mdi mdi-panorama menu-icon"></i>
             </a>
           </li>
         </ul>
@@ -127,7 +85,7 @@
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
-          <div class="row" id="quotawidget">
+          <!-- <div class="row" id="quotawidget">
             <div class="col-md-3 stretch-card grid-margin">
               <div class="card bg-gradient-danger card-img-holder text-white">
                 <div class="card-body">
@@ -173,20 +131,20 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
 
           <div class="row">
             <div class="col-12 grid-margin">
               <div class="card" style="background-color: #2C3E50;">
                 <div class="card-body">
-                  <h4 class="card-title">Update Membership Packages</h4><br>
-                  <form class="form-sample ml-5" id="quotaform">
+                  <h4 class="card-title">Add Documentaion</h4><br>
+                  <form class="form-sample ml-5" enctype="multipart/form-data" id="fileForm">
                     <div class="row">
                       <div class="col-md-8">
                         <div class="form-group row">
-                          <label class="col-sm-4 col-form-label" style="color: #ffffff;">Freshman Package</label>
+                          <label class="col-sm-4 col-form-label" style="color: #ffffff;">System Name</label>
                           <div class="col-sm-8">
-                            <input type="text" id="txtFr" class="form-control" placeholder="Enter new price here" />
+                            <input type="text" id="system_name" name="system_name" class="form-control" placeholder="Enter System Name" />
                           </div>
                         </div>
                       </div>
@@ -194,9 +152,9 @@
                     <div class="row">
                       <div class="col-md-8">
                         <div class="form-group row">
-                          <label class="col-sm-4 col-form-label" style="color: #ffffff;">Intermediate Package</label>
+                          <label class="col-sm-4 col-form-label" style="color: #ffffff;">Description</label>
                           <div class="col-sm-8">
-                            <input type="text" id="txtIn" class="form-control" placeholder="Enter new price here" />
+                            <input type="text" id="discription" name="discription" class="form-control" placeholder="Enter Description" />
                           </div>
                         </div>
                       </div>
@@ -204,19 +162,9 @@
                     <div class="row">
                       <div class="col-md-8">
                         <div class="form-group row">
-                          <label class="col-sm-4 col-form-label" style="color: #ffffff;">Elite Package</label>
+                          <label class="col-sm-4 col-form-label" style="color: #ffffff;">Upload the Json</label>
                           <div class="col-sm-8">
-                            <input type="text" id="txtEl" class="form-control" placeholder="Enter new price here" />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-8">
-                        <div class="form-group row">
-                          <label class="col-sm-4 col-form-label" style="color: #ffffff;">Elite Package</label>
-                          <div class="col-sm-8">
-                            <input type="text" id="txtEl" class="form-control" placeholder="Enter new price here" />
+                            <input type="file" class="form-control" id="File" name="File" placeholder="Enter Description"/>
                           </div>
                         </div>
                       </div>
@@ -256,12 +204,6 @@
   <script src="js/hoverable-collapse.js"></script>
   <script src="js/misc.js"></script>
   <script src="js/main.js"></script>
-  <script language="javascript">
-    var quotaResult;
-    $(document).ready(function () {
-      quotaResult = viewfulequota()
-    });
-  </script>
   <!-- endinject -->
   <!-- Custom js for this page -->
   <!-- End custom js for this page -->
